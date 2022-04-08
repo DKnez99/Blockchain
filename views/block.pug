@@ -1,0 +1,55 @@
+extends layout
+
+block layout-content
+    div.container
+        h1.text-center.mt-3.mb-1 BLOCK
+        div.card.bg-light
+            div.card-body
+                form
+                    div.mb-3.row
+                        label.col-sm-2.control-label.pt-2(for='magic') Magic:
+                        div.col-sm-10
+                            div.input-group 
+                                span.input-group-text #
+                                input#magic.form-control(type='number', value='51948', min='0', step='1', onfocus='this.previousValue = this.value', onkeydown='this.previousValue = this.value', oninput='validity.valid||(value=this.previousValue);')
+
+                    div.mb-3.row
+                        label.col-sm-2.control-label.pt-2(for='blockid') Block:
+                        div.col-sm-10
+                            div.input-group 
+                                span.input-group-text #
+                                input#blockid.form-control(type='number', value='14', min='0', step='1', onfocus='this.previousValue = this.value', onkeydown='this.previousValue = this.value', oninput='validity.valid||(value=this.previousValue);')
+
+                    div.mb-3.row
+                        label.col-sm-2.col-form-label(for='data') Data:
+                        div.col-sm-10
+                            textarea#data.form-control(rows='10')
+
+                    div.mb-3.row
+                        label.col-sm-2.control-label.pt-2(for='hash') Hash:
+                        div.col-sm-10
+                            input#hash.form-control(type='text', disabled)
+
+    script.
+        function getText(chain, block){
+            return $('#magic').val().toString()+$('#blockid').val().toString()+$('#data').val();
+        }
+
+        $('#hash').val(sha256());
+
+        $(function() {
+            $('#magic').bind('input propertychange', function() {
+                $('#hash').val(sha256());    
+            });
+
+            $('#magic').bind('input propertychange', function() {
+                $('#hash').val(sha256());
+            });
+
+            $('#blockid').bind('input propertychange', function() {
+                $('#hash').val(sha256());
+            });
+            $('#data').bind('input propertychange', function() {
+                $('#hash').val(sha256());
+            });
+        });

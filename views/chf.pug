@@ -1,0 +1,51 @@
+extends layout
+
+block layout-content
+    div.container
+        h1.text-center.mt-3.mb-1 CRYPTOGRAPHIC HASH FUNCTIONS
+        div.card.bg-light
+            div.card-body
+                form
+                    div.row.mb-3
+                        label.col-sm-2.col-form-label(for='data') Data:
+                        div.col-sm-10
+                            textarea#data.form-control(rows='10')
+
+                    div.row.mb-3
+                        label.col-sm-2.control-label.pt-2(for='md5') MD5:
+                        div.col-sm-10
+                            input#md5.form-control(type='text', disabled)
+
+                    div.row.mb-3
+                        label.col-sm-2.control-label.pt-2(for='sha1') SHA1:
+                        div.col-sm-10
+                            input#sha1.form-control(type='text', disabled)
+
+                    div.row.mb-3
+                        label.col-sm-2.control-label.pt-2(for='sha256') SHA256:
+                        div.col-sm-10
+                            input#sha256.form-control(type='text', disabled)
+
+                    div.row.mb-3
+                        label.col-sm-2.control-label.pt-2(for='sha512') SHA512:
+                        div.col-sm-10
+                            input#sha512.form-control(type='text', disabled)
+
+    script.
+        function getText(chain, block){
+            return $('#data').val();
+        }
+
+        $('#md5').val(md5());
+        $('#sha1').val(sha1());
+        $('#sha256').val(sha256());
+        $('#sha512').val(sha512());
+
+        $(function() {
+            $('#data').bind('input propertychange', function() {
+                $('#md5').val(md5());
+                $('#sha1').val(sha1());
+                $('#sha256').val(sha256());
+                $('#sha512').val(sha512());
+            });
+        });

@@ -1,0 +1,25 @@
+{
+  "name": "blockchain-virtualization",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ui": "browser-sync start --config bs-config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.27.9",
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "bootstrap-horizon": "^1.0.1",
+    "crypto-js": "^4.1.1",
+    "express": "^4.17.3",
+    "jquery": "^3.6.0",
+    "pug": "^3.0.2"
+  }
+}

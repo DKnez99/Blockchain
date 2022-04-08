@@ -1,0 +1,16 @@
+.card-color-transition{
+    transition: all 1s ease;
+    /*background-color: red;
+    animation: changeCardColor 5s; */
+}
+
+.card-color-change{
+    background-color: #6988cc!important;
+}
+
+@keyframes changeCardColor {
+    from {background-color: red;}
+    to {background-color: rgb(248,249,250)}
+  }
+
+  /*STAVITI DA SE LANCANO MENJAJU BOJE CARDOVA I PREV HASHEVA!!!!!!!!!*/
