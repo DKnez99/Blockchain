@@ -1,0 +1,38 @@
+div.card.bg-light(id='chain'+transactionblock.chain+'block'+transactionblock.block+'card')
+    div.card-body
+        form
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+transactionblock.chain+'block'+transactionblock.block+'magic') Magic:
+                div.col-sm-10
+                    div.input-group 
+                        span.input-group-text #
+                        input.form-control(id='chain'+transactionblock.chain+'block'+transactionblock.block+'magic', type='number', value=transactionblock.magic, min='0', step='1', onfocus='this.previousValue = this.value', onkeydown='this.previousValue = this.value', oninput='validity.valid||(value=this.previousValue);', disabled)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+transactionblock.chain+'block'+transactionblock.block+'blockid') Block:
+                div.col-sm-10
+                    div.input-group 
+                        span.input-group-text #
+                        input.form-control(id='chain'+transactionblock.chain+'block'+transactionblock.block+'blockid', type='number', value=transactionblock.blockid, min='0', step='1', onfocus='this.previousValue = this.value', onkeydown='this.previousValue = this.value', oninput='validity.valid||(value=this.previousValue);', disabled)
+
+            div.mb-3.row
+                label.col-sm-2.col-form-label(for='chain'+transactionblock.chain+'block'+transactionblock.block+'tx') Tx:
+                div.col-sm-10
+                    each tx, i in transactionblock.txs
+                        div.input-group 
+                            span.input-group-text Đ
+                            input.form-control(id='chain'+transactionblock.chain+'block'+transactionblock.block+'tx'+i+'value', type='number', value=tx.value, min='0', onfocus='this.previousValue = this.value', onkeydown='this.previousValue = this.value', oninput='validity.valid||(value=this.previousValue);')
+                            span.input-group-text From:
+                            input.form-control(id='chain'+transactionblock.chain+'block'+transactionblock.block+'tx'+i+'from', type='text', value=tx.from)
+                            span.input-group-text To:
+                            input.form-control(id='chain'+transactionblock.chain+'block'+transactionblock.block+'tx'+i+'to', type='text', value=tx.to)
+            
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+transactionblock.chain+'block'+transactionblock.block+'prev') Prev:
+                div.col-sm-10
+                    input.form-control(id='chain'+transactionblock.chain+'block'+transactionblock.block+'prev', type='text', value=transactionblock.prev)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+transactionblock.chain+'block'+transactionblock.block+'hash') Hash:
+                div.col-sm-10
+                    input.form-control(id='chain'+transactionblock.chain+'block'+transactionblock.block+'hash', type='text', disabled)

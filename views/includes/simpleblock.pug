@@ -1,4 +1,4 @@
-div.card.bg-light(id='chain'+simpleblock.chain+'block'+simpleblock.block+'card').card-color-transition
+div.card.bg-light(id='chain'+simpleblock.chain+'block'+simpleblock.block+'card')
     div.card-body
         form
             div.mb-3.row
@@ -21,7 +21,7 @@ div.card.bg-light(id='chain'+simpleblock.chain+'block'+simpleblock.block+'card')
                     textarea.form-control(id='chain'+simpleblock.chain+'block'+simpleblock.block+'data',rows='10')
 
             div.mb-3.row
-                label.col-sm-2.control-label.pt-2(for='chain'+simpleblock.chain+'block'+simpleblock.block+'prev') Previous:
+                label.col-sm-2.control-label.pt-2(for='chain'+simpleblock.chain+'block'+simpleblock.block+'prev') Prev:
                 div.col-sm-10
                     input.form-control(id='chain'+simpleblock.chain+'block'+simpleblock.block+'prev', type='text', value=simpleblock.prev)
 
