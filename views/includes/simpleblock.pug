@@ -6,14 +6,14 @@ div.card.bg-light(id='chain'+simpleblock.chain+'block'+simpleblock.block+'card')
                 div.col-sm-10
                     div.input-group 
                         span.input-group-text #
-                        input.form-control(id='chain'+simpleblock.chain+'block'+simpleblock.block+'magic', type='number', value=simpleblock.magic, min='0', step='1', onfocus='this.previousValue = this.value', onkeydown='this.previousValue = this.value', oninput='validity.valid||(value=this.previousValue);', disabled)
+                        input.form-control(id='chain'+simpleblock.chain+'block'+simpleblock.block+'magic', type='text', value=simpleblock.magic)
 
             div.mb-3.row
                 label.col-sm-2.control-label.pt-2(for='chain'+simpleblock.chain+'block'+simpleblock.block+'blockid') Block:
                 div.col-sm-10
                     div.input-group 
                         span.input-group-text #
-                        input.form-control(id='chain'+simpleblock.chain+'block'+simpleblock.block+'blockid', type='number', value=simpleblock.blockid, min='0', step='1', onfocus='this.previousValue = this.value', onkeydown='this.previousValue = this.value', oninput='validity.valid||(value=this.previousValue);', disabled)
+                        input.form-control(id='chain'+simpleblock.chain+'block'+simpleblock.block+'blockid', type='text', value=simpleblock.blockid)
 
             div.mb-3.row
                 label.col-sm-2.col-form-label(for='chain'+simpleblock.chain+'block'+simpleblock.block+'data') Data:

@@ -17,8 +17,8 @@ block layout-content
 
     script.
         function getText(chain, block){
-            return $('#chain'+chain+'block'+block+'magic').val().toString()+
-                   $('#chain'+chain+'block'+block+'blockid').val().toString()+
+            return $('#chain'+chain+'block'+block+'magic').val()+
+                   $('#chain'+chain+'block'+block+'blockid').val()+
                    $('#chain'+chain+'block'+block+'data').val()+
                    $('#chain'+chain+'block'+block+'prev').val();
         }
@@ -26,8 +26,16 @@ block layout-content
         function setup(chain, block){
             updateHash(chain,block);
 
-            $('#chain'+chain+'block'+block+'magic').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
-            $('#chain'+chain+'block'+block+'blockid').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
+            $('#chain'+chain+'block'+block+'magic').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');     //DO NOT CHANGE THE ORDERING OF THESE 2
+                    updateChain(chain, block, #{blocks.length});
+                    
+                });
+            $('#chain'+chain+'block'+block+'blockid').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');     //DO NOT CHANGE THE ORDERING OF THESE 2
+                    updateChain(chain, block, #{blocks.length});
+                });
+
             $('#chain'+chain+'block'+block+'data').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
         }
 

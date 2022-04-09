@@ -6,51 +6,61 @@ block layout-content
         div.row.row-horizon(style='flex-wrap: nowrap')
             - var blocks = []
             - blocks.push({chain: 1, block: 1, magic: 74567, blockid: 1, txs: [], prev: '0000000000000000000000000000000000000000000000000000000000000000'})
-            - blocks.push({chain: 1, block: 2, magic: 74567, blockid: 2, txs: [{value: '4.55', from: 'Mark', to: 'Nichole'}, {value: '1.00', from: 'Andrei', to: 'Yamato'}, {value: '14.00', from: 'Mark', to: 'Yamato'}, {value: '0.07', from: 'Nichole', to: 'Mark'}], prev: 'fe09b555621b00d08412923c25931b9854feb6d0206e00be6d2562b03f9497e7'})
-            - blocks.push({chain: 1, block: 3, magic: 74567, blockid: 3, txs: [{value: '12.50', from: 'Andrei', to: 'Nichole'}, {value: '3.44', from: 'Yamato', to: 'George'}, {value: '9.03', from: 'Yamato', to: 'Mark'}, {value: '25.00', from: 'Luke', to: 'Andrei'}, {value: '25.00', from: 'Luke', to: 'Yamato'}, {value: '18.67', from: 'Andrei', to: 'George'}], prev: '7cd4bf93ee0018126aa84d48bd7dc5cfbcbc9457b4f931b3767b76d275ccfe6e'})
-            - blocks.push({chain: 1, block: 4, magic: 74567, blockid: 4, txs: [{value: '10.00', from: 'Anders', to: 'Sophia'}, {value: '20.00', from: 'Anders', to: 'Lucas'}], prev: '3eae7011c3e4525f8d5f221f8c60e3facec881040caf74abd3b648ff835cf3a3'})
-            - blocks.push({chain: 1, block: 5, magic: 74567, blockid: 5, txs: [{value: '10.00', from: 'Anders', to: 'Sophia'}, {value: '20.00', from: 'Anders', to: 'Lucas'}], prev: '4be027c3c4df33d226a352d337ba400dc7097c085632ade089bc56ff9c1e47eb'})
-            - blocks.push({chain: 1, block: 6, magic: 74567, blockid: 6, txs: [{value: '10.00', from: 'Anders', to: 'Sophia'}, {value: '20.00', from: 'Anders', to: 'Lucas'}], prev: 'dfbfed7dd4c6e972ffad17325d87cc82f3a5663aea49344f8dd658b645f8251a'})
+            - blocks.push({chain: 1, block: 2, magic: 74567, blockid: 2, txs: [{value: '4.55', from: 'Mark', to: 'Nichole'}, {value: '1.00', from: 'Andrei', to: 'Yamato'}, {value: '14.00', from: 'Mark', to: 'Yamato'}, {value: '0.07', from: 'Nichole', to: 'Mark'}], prev: '050a3c1fe50deb0b49aa719b33f55e99114e6ce000e10ef855cb6bb5ea2a0624'})
+            - blocks.push({chain: 1, block: 3, magic: 74567, blockid: 3, txs: [{value: '12.50', from: 'Andrei', to: 'Nichole'}, {value: '3.44', from: 'Yamato', to: 'George'}, {value: '9.03', from: 'Yamato', to: 'Mark'}, {value: '25.00', from: 'Luke', to: 'Andrei'}, {value: '25.00', from: 'Luke', to: 'Yamato'}, {value: '18.67', from: 'Andrei', to: 'George'}], prev: '75c6a98bf5e95f96644ce2c13d5181901c5ac762601a4407912fe07a5141a261'})
+            - blocks.push({chain: 1, block: 4, magic: 74567, blockid: 4, txs: [{value: '9.90', from: 'Nichole', to: 'Sophia'}, {value: '22.42', from: 'Mark', to: 'Luke'}, {value: '4.09', from: 'Yamato', to: 'Sophia'}], prev: '0ca9afed5d03a8e2529563cb7fdc644ea62471a8bfa088bc348d3048a1ca751a'})
+            - blocks.push({chain: 1, block: 5, magic: 74567, blockid: 5, txs: [{value: '1.00', from: 'Andrei', to: 'Mark'}, {value: '4.50', from: 'Andrei', to: 'Sophia'}], prev: 'f57826ac5d23e3977d314831fc93e1120485b3b72069caf8a3aa242c95aaf13a'})
+            - blocks.push({chain: 1, block: 6, magic: 74567, blockid: 6, txs: [{value: '115.00', from: 'Nichole', to: 'Mark'}], prev: '4a32fa62a4cfe82537df7a458d0863aafa87adf12d552cb5943916ed1ddb8e93'})
             each transactionblock in blocks
                 div.col-lg-6
                     include includes/transactionblock
 
     script.
         function getText(chain, block){
-            var text =  $('#chain'+chain+'block'+block+'magic').val().toString()+
-                        $('#chain'+chain+'block'+block+'blockid').val().toString();
+            var text =  $('#chain'+chain+'block'+block+'magic').val()+
+                        $('#chain'+chain+'block'+block+'blockid').val();
 
             
             
             for(var i = 0; $('#chain'+chain+'block'+block+'tx'+i+'value').length>0; i++){
-                text += $('#chain'+chain+'block'+block+'tx'+i+'value').val().toString()+
+                text += $('#chain'+chain+'block'+block+'tx'+i+'value').val()+
                         $('#chain'+chain+'block'+block+'tx'+i+'from').val()+
                         $('#chain'+chain+'block'+block+'tx'+i+'to').val();
             }
 
             text += $('#chain'+chain+'block'+block+'prev').val();
-            
+
             return text;
         }
 
         function setup(chain, block){
             updateHash(chain, block);
 
-            $('#chain'+chain+'block'+block+'magic').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
-            $('#chain'+chain+'block'+block+'blockid').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
+            $('#chain'+chain+'block'+block+'magic').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');         //DO NOT CHANGE THE ORDERING OF THESE 2
+                    updateChain(chain, block, #{blocks.length});
+                });
+
+            $('#chain'+chain+'block'+block+'blockid').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');         //DO NOT CHANGE THE ORDERING OF THESE 2
+                    updateChain(chain, block, #{blocks.length});
+                });
 
             for(var i = 0; $('#chain'+chain+'block'+block+'tx'+i+'value').length>0; i++){
-                $('#chain'+chain+'block'+block+'tx'+i+'value').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
+                $('#chain'+chain+'block'+block+'tx'+i+'value').bind('input propertychange', function() {
+                        this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+                        updateChain(chain, block, #{blocks.length});
+                    });
                 $('#chain'+chain+'block'+block+'tx'+i+'from').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
                 $('#chain'+chain+'block'+block+'tx'+i+'to').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
             }
         }
+
         $(function(){
             for(var i = 1; i <= #{blocks.length}; i++){
                 setup(1,i);
             }
         });
-
         //SREDITI BOJENJE KARTI I TEXTBOXOVA
         //SREDITI PRELAMANJE LABELA PRILIKOM RESIZEA
         //SREDITI PROMENU PREVIOUS HASHA
