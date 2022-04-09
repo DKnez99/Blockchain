@@ -1,0 +1,49 @@
+div.card.bg-light(id='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'card')
+    div.card-body
+        form
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'magic') Magic:
+                div.col-sm-10
+                    div.input-group 
+                        span.input-group-text #
+                        input.form-control(id='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'magic', type='text', value=coinbaseblock.magic)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'blockid') Block:
+                div.col-sm-10
+                    div.input-group 
+                        span.input-group-text #
+                        input.form-control(id='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'blockid', type='text', value=coinbaseblock.blockid)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'blockid') Coinbase:
+                div.col-sm-10
+                    div.input-group 
+                        span.input-group-text £
+                        input.form-control(id='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'coinvalue', type='text', value=coinbaseblock.coinvalue)
+                        span.input-group-text To:
+                        input.form-control(id='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'cointo', type='text', value=coinbaseblock.cointo)
+            
+            div.mb-3.row
+                label.col-sm-2.col-form-label(for='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'tx') Tx:
+                div.col-sm-10
+                    each tx, i in coinbaseblock.txs
+                        div.input-group 
+                            span.input-group-text £
+                            input.form-control(id='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'tx'+i+'value', type='text', value=tx.value)
+                            span.input-group-text From:
+                            input.form-control(id='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'tx'+i+'from', type='text', value=tx.from)
+                            span.input-group-text To:
+                            input.form-control(id='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'tx'+i+'to', type='text', value=tx.to)
+                            span.input-group-text Ref:
+                            input.form-control(id='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'tx'+i+'ref', type='text', value=tx.ref)
+            
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'prev') Prev:
+                div.col-sm-10
+                    input.form-control(id='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'prev', type='text', value=coinbaseblock.prev)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'hash') Hash:
+                div.col-sm-10
+                    input.form-control(id='chain'+coinbaseblock.chain+'block'+coinbaseblock.block+'hash', type='text', disabled)
