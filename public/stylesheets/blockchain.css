@@ -1,2 +1,8 @@
+.card-error{
+  background-color: rgba(237, 114, 114)!important;
+}
 
-  /*STAVITI DA SE LANCANO MENJAJU BOJE CARDOVA I PREV HASHEVA!!!!!!!!!*/
+.input-error{
+  color: rgb(224, 29, 29)!important;
+  font-weight: 600!important;
+}

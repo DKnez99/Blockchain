@@ -28,15 +28,17 @@ block layout-content
 
             $('#chain'+chain+'block'+block+'magic').bind('input propertychange', function() {
                     this.value = this.value.replace(/[^0-9]/g, '');     //DO NOT CHANGE THE ORDERING OF THESE 2
-                    updateChain(chain, block, #{blocks.length});
+                    updateBlockchain(chain, block, #{blocks.length});
                     
                 });
             $('#chain'+chain+'block'+block+'blockid').bind('input propertychange', function() {
                     this.value = this.value.replace(/[^0-9]/g, '');     //DO NOT CHANGE THE ORDERING OF THESE 2
-                    updateChain(chain, block, #{blocks.length});
+                    updateBlockchain(chain, block, #{blocks.length});
                 });
 
-            $('#chain'+chain+'block'+block+'data').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
+            $('#chain'+chain+'block'+block+'data').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
+
+            $('#chain'+chain+'block'+block+'prev').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
         }
 
         $(function(){
