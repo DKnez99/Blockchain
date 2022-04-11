@@ -37,43 +37,84 @@ block layout-content
         function setup(chain, block){
             updateHash(chain, block);
 
+            //magic
             $('#chain'+chain+'block'+block+'magic').bind('input propertychange', function() {
-                    this.value = this.value.replace(/[^0-9]/g, '');         //DO NOT CHANGE THE ORDERING OF THESE 2
-                    updateChain(chain, block, #{blocks.length});
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    updateBlockhain(chain, block, #{blocks.length});
                 });
 
+            $('#chain'+chain+'block'+block+'magic').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    updateBlockchain(chain, block, #{blocks.length});
+                }          
+            });
+
+            //blockid
             $('#chain'+chain+'block'+block+'blockid').bind('input propertychange', function() {
-                    this.value = this.value.replace(/[^0-9]/g, '');         //DO NOT CHANGE THE ORDERING OF THESE 2
-                    updateChain(chain, block, #{blocks.length});
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    updateBlockchain(chain, block, #{blocks.length});
                 });
 
-            $('#chain'+chain+'block'+block+'cointo').bind('input propertychange', function() {
-                    updateChain(chain, block, #{blocks.length});
-                });
+            $('#chain'+chain+'block'+block+'blockid').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    updateBlockchain(chain, block, #{blocks.length});
+                }          
+            });
 
+            //coinbase
             $('#chain'+chain+'block'+block+'coinvalue').bind('input propertychange', function() {
-                    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');         //DO NOT CHANGE THE ORDERING OF THESE 2
-                    updateChain(chain, block, #{blocks.length});
+                    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+                    updateBlockchain(chain, block, #{blocks.length});
                 });
 
+            $('#chain'+chain+'block'+block+'coinvalue').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    updateBlockchain(chain, block, #{blocks.length});
+                }          
+            });
+            
+            $('#chain'+chain+'block'+block+'cointo').bind('input propertychange', function() {
+                    updateBlockchain(chain, block, #{blocks.length});
+                });
+
+            //txs
             for(var i = 0; $('#chain'+chain+'block'+block+'tx'+i+'value').length>0; i++){
+                //tx value
                 $('#chain'+chain+'block'+block+'tx'+i+'value').bind('input propertychange', function() {
                         this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
-                        updateChain(chain, block, #{blocks.length});
+                        updateBlockchain(chain, block, #{blocks.length});
                     });
-                $('#chain'+chain+'block'+block+'tx'+i+'from').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
-                $('#chain'+chain+'block'+block+'tx'+i+'to').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
 
+                $('#chain'+chain+'block'+block+'tx'+i+'value').bind('focusout', function() {
+                        if(this.value==''){
+                            this.value='0';
+                            updateBlockchain(chain, block, #{blocks.length});
+                        }
+                    });
+                
+                //tx from
+                $('#chain'+chain+'block'+block+'tx'+i+'from').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
+
+                //tx to
+                $('#chain'+chain+'block'+block+'tx'+i+'to').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
+
+                //tx ref
                 $('#chain'+chain+'block'+block+'tx'+i+'ref').bind('input propertychange', function() {
-                    this.value = this.value.replace(/[^0-9 ]/g, '').replace(/ +/g,' ').replace(/^ /g, '');         //DO NOT CHANGE THE ORDERING OF THESE 2
-                    updateChain(chain, block, #{blocks.length});
+                    this.value = this.value.replace(/[^0-9 ]/g, '').replace(/ +/g,' ').replace(/^ /g, '');
+                    updateBlockchain(chain, block, #{blocks.length});
                 });
 
                 $('#chain'+chain+'block'+block+'tx'+i+'ref').bind('focusout', function() {
-                    this.value = this.value.replace(/ $/g, '');         //DO NOT CHANGE THE ORDERING OF THESE 2
-                    updateChain(chain, block, #{blocks.length});
+                    this.value = this.value.replace(/ $/g, '');
+                    updateBlockchain(chain, block, #{blocks.length});
                 });
             }
+
+            //prev
+            $('#chain'+chain+'block'+block+'prev').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
         }
 
         $(function(){
@@ -81,6 +122,4 @@ block layout-content
                 setup(1,i);
             }
         });
-        //SREDITI BOJENJE KARTI I TEXTBOXOVA
-        //SREDITI PRELAMANJE LABELA PRILIKOM RESIZEA
-        //SREDITI PROMENU PREVIOUS HASHA
+        //SREDITI PRACENJE TX

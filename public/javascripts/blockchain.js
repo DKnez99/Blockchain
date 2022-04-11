@@ -9,7 +9,7 @@ function updateBlockchain(chain, block, chainSize) {
     if($('#chain'+chain+'block'+(i-1).toString()+'magic').val()!=$('#chain'+chain+'block'+i+'magic').val() ||
       parseInt($('#chain'+chain+'block'+(i-1).toString()+'blockid').val())!=parseInt($('#chain'+chain+'block'+i+'blockid').val())-1 ||
       $('#chain'+chain+'block'+(i-1).toString()+'hash').val()!=$('#chain'+chain+'block'+i+'prev').val()){
-        
+
         $('#chain'+chain+'block'+i+'card').removeClass('bg-light').addClass('card-error');
 
         if($('#chain'+chain+'block'+(i-1).toString()+'hash').val()!=$('#chain'+chain+'block'+i+'prev').val()){  //previous and current hash DON'T match
@@ -18,6 +18,8 @@ function updateBlockchain(chain, block, chainSize) {
           $('#chain'+chain+'block'+i+'prev').addClass('input-error');
         }
         else{ //previous and current hash match
+          if(i-1==1)
+            $('#chain'+chain+'block'+(i-1).toString()+'card').removeClass('card-error').addClass('bg-light'); //novo dodato
           $('#chain'+chain+'block'+(i-1).toString()+'hash').removeClass('input-error');
           $('#chain'+chain+'block'+i+'prev').removeClass('input-error');
         }
