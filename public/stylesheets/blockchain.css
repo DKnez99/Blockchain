@@ -1,8 +1,9 @@
 .card-error{
-  background-color: rgba(237, 114, 114)!important;
+  background-color: rgba(255, 150, 150)!important;
 }
 
 .input-error{
-  color: rgb(224, 29, 29)!important;
+  color: rgb(230, 10, 10)!important;
   font-weight: 600!important;
+  border: 2px solid rgb(230, 10, 10)!important;
 }
