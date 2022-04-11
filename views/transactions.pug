@@ -5,12 +5,12 @@ block layout-content
         h1.text-center.mt-3.mb-3 TRANSACTIONS
         div.row.row-horizon(style='flex-wrap: nowrap')
             - var blocks = []
-            - blocks.push({chain: 1, block: 1, magic: 74567, blockid: 1, txs: [], prev: '0000000000000000000000000000000000000000000000000000000000000000'})
-            - blocks.push({chain: 1, block: 2, magic: 74567, blockid: 2, txs: [{value: '4.55', from: 'Mark', to: 'Nichole'}, {value: '1.00', from: 'Andrei', to: 'Yamato'}, {value: '14.00', from: 'Mark', to: 'Yamato'}, {value: '0.07', from: 'Nichole', to: 'Mark'}], prev: '050a3c1fe50deb0b49aa719b33f55e99114e6ce000e10ef855cb6bb5ea2a0624'})
-            - blocks.push({chain: 1, block: 3, magic: 74567, blockid: 3, txs: [{value: '12.50', from: 'Andrei', to: 'Nichole'}, {value: '3.44', from: 'Yamato', to: 'George'}, {value: '9.03', from: 'Yamato', to: 'Mark'}, {value: '25.00', from: 'Luke', to: 'Andrei'}, {value: '25.00', from: 'Luke', to: 'Yamato'}, {value: '18.67', from: 'Andrei', to: 'George'}], prev: '75c6a98bf5e95f96644ce2c13d5181901c5ac762601a4407912fe07a5141a261'})
-            - blocks.push({chain: 1, block: 4, magic: 74567, blockid: 4, txs: [{value: '9.90', from: 'Nichole', to: 'Sophia'}, {value: '22.42', from: 'Mark', to: 'Luke'}, {value: '4.09', from: 'Yamato', to: 'Sophia'}], prev: '0ca9afed5d03a8e2529563cb7fdc644ea62471a8bfa088bc348d3048a1ca751a'})
-            - blocks.push({chain: 1, block: 5, magic: 74567, blockid: 5, txs: [{value: '1.00', from: 'Andrei', to: 'Mark'}, {value: '4.50', from: 'Andrei', to: 'Sophia'}], prev: 'f57826ac5d23e3977d314831fc93e1120485b3b72069caf8a3aa242c95aaf13a'})
-            - blocks.push({chain: 1, block: 6, magic: 74567, blockid: 6, txs: [{value: '115.00', from: 'Nichole', to: 'Mark'}], prev: '4a32fa62a4cfe82537df7a458d0863aafa87adf12d552cb5943916ed1ddb8e93'})
+            - blocks.push({chain: 1, block: 1, magic: 74567, blockid: 1, txs: [{value: '10.44', from: 'Sophia', to: 'Mark'}, {value: '0.95', from: 'Yamato', to: 'Mark'}, {value: '11.20', from: 'Yamato', to: 'Luke'}], prev: '0000000000000000000000000000000000000000000000000000000000000000'})
+            - blocks.push({chain: 1, block: 2, magic: 74567, blockid: 2, txs: [{value: '4.55', from: 'Mark', to: 'Nichole'}, {value: '1.00', from: 'Andrei', to: 'Yamato'}, {value: '14.00', from: 'Mark', to: 'Yamato'}, {value: '0.07', from: 'Nichole', to: 'Mark'}], prev: '7fb44d365b716094b740f95894579e6df206bf6b4970b1199243489ff273276b'})
+            - blocks.push({chain: 1, block: 3, magic: 74567, blockid: 3, txs: [{value: '12.50', from: 'Andrei', to: 'Nichole'}, {value: '3.44', from: 'Yamato', to: 'George'}, {value: '9.03', from: 'Yamato', to: 'Mark'}, {value: '25.00', from: 'Luke', to: 'Andrei'}, {value: '25.00', from: 'Luke', to: 'Yamato'}, {value: '18.67', from: 'Andrei', to: 'George'}], prev: 'ef610b751a42cb4875fd229547893360e369e8792e51002c34d28a523ccb0851'})
+            - blocks.push({chain: 1, block: 4, magic: 74567, blockid: 4, txs: [{value: '9.90', from: 'Nichole', to: 'Sophia'}, {value: '22.42', from: 'Mark', to: 'Luke'}, {value: '4.09', from: 'Yamato', to: 'Sophia'}], prev: '8f91a7d858488c3cdb43fae7920b6e444d963efeb702d69b8255d6a52f92f997'})
+            - blocks.push({chain: 1, block: 5, magic: 74567, blockid: 5, txs: [{value: '1.00', from: 'Andrei', to: 'Mark'}, {value: '4.50', from: 'Andrei', to: 'Sophia'}], prev: '22442140f1dcd327cf8e95b124f412904526ff876c51edb3d4c7bddd9efc188c'})
+            - blocks.push({chain: 1, block: 6, magic: 74567, blockid: 6, txs: [{value: '115.00', from: 'Nichole', to: 'Mark'}], prev: '8bea76e667ab3f9a8b87926106438eaa4579229ee0d1ef1b2483cb056514f6ea'})
             each transactionblock in blocks
                 div.col-lg-6
                     include includes/transactionblock
@@ -36,24 +36,56 @@ block layout-content
         function setup(chain, block){
             updateHash(chain, block);
 
+            //magic
             $('#chain'+chain+'block'+block+'magic').bind('input propertychange', function() {
-                    this.value = this.value.replace(/[^0-9]/g, '');         //DO NOT CHANGE THE ORDERING OF THESE 2
-                    updateChain(chain, block, #{blocks.length});
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    updateBlockchain(chain, block, #{blocks.length});
                 });
 
+            $('#chain'+chain+'block'+block+'magic').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    updateBlockchain(chain, block, #{blocks.length});
+                }          
+            });
+
+            //blockid
             $('#chain'+chain+'block'+block+'blockid').bind('input propertychange', function() {
-                    this.value = this.value.replace(/[^0-9]/g, '');         //DO NOT CHANGE THE ORDERING OF THESE 2
-                    updateChain(chain, block, #{blocks.length});
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    updateBlockchain(chain, block, #{blocks.length});
                 });
 
+            $('#chain'+chain+'block'+block+'blockid').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    updateBlockchain(chain, block, #{blocks.length});
+                }
+            });
+
+            //txs
             for(var i = 0; $('#chain'+chain+'block'+block+'tx'+i+'value').length>0; i++){
+                //tx value
                 $('#chain'+chain+'block'+block+'tx'+i+'value').bind('input propertychange', function() {
                         this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
-                        updateChain(chain, block, #{blocks.length});
+                        updateBlockchain(chain, block, #{blocks.length});
                     });
-                $('#chain'+chain+'block'+block+'tx'+i+'from').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
-                $('#chain'+chain+'block'+block+'tx'+i+'to').bind('input propertychange', function() { updateChain(chain, block, #{blocks.length}); });
+
+                $('#chain'+chain+'block'+block+'tx'+i+'value').bind('focusout', function() {
+                        if(this.value==''){
+                            this.value='0';
+                            updateBlockchain(chain, block, #{blocks.length});
+                        }
+                    });
+
+                //tx from
+                $('#chain'+chain+'block'+block+'tx'+i+'from').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
+
+                //tx to
+                $('#chain'+chain+'block'+block+'tx'+i+'to').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
             }
+
+            //prev
+            $('#chain'+chain+'block'+block+'prev').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });   
         }
 
         $(function(){
@@ -61,6 +93,3 @@ block layout-content
                 setup(1,i);
             }
         });
-        //SREDITI BOJENJE KARTI I TEXTBOXOVA
-        //SREDITI PRELAMANJE LABELA PRILIKOM RESIZEA
-        //SREDITI PROMENU PREVIOUS HASHA

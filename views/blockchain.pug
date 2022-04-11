@@ -24,22 +24,14 @@ block layout-content
         }
 
         function setup(chain, block){
+            //calculate hash
             updateHash(chain,block);
 
+            //magic
             $('#chain'+chain+'block'+block+'magic').bind('input propertychange', function() {
                     this.value = this.value.replace(/[^0-9]/g, '');
                     updateBlockchain(chain, block, #{blocks.length});
-                    
                 });
-            $('#chain'+chain+'block'+block+'blockid').bind('input propertychange', function() {
-                    this.value = this.value.replace(/[^0-9]/g, '');
-                    updateBlockchain(chain, block, #{blocks.length});
-                });
-
-            $('#chain'+chain+'block'+block+'data').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
-
-            $('#chain'+chain+'block'+block+'prev').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
-
 
             $('#chain'+chain+'block'+block+'magic').bind('focusout', function() {
                     if(this.value==''){
@@ -48,12 +40,24 @@ block layout-content
                     }          
                 });
 
+            //block id
+            $('#chain'+chain+'block'+block+'blockid').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    updateBlockchain(chain, block, #{blocks.length});
+                });
+
             $('#chain'+chain+'block'+block+'blockid').bind('focusout', function() {
                     if(this.value==''){
                         this.value='0';
                         updateBlockchain(chain, block, #{blocks.length});
                     }
                 });
+
+            //data
+            $('#chain'+chain+'block'+block+'data').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
+
+            //prev
+            $('#chain'+chain+'block'+block+'prev').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
         }
 
         $(function(){
@@ -61,6 +65,3 @@ block layout-content
                 setup(1,i);
             }
         });
-
-        //SREDITI BOJENJE KARTI I TEXTBOXOVA
-        //SREDITI PRELAMANJE LABELA PRILIKOM RESIZEA
