@@ -6,11 +6,11 @@ block layout-content
         div.row.row-horizon(style='flex-wrap: nowrap')
             - var blocks = []
             - blocks.push({chain: 1, block: 1, magic: 74567, blockid: 1, coinvalue: '20.00', cointo: 'Mark', txs: [], prev: '0000000000000000000000000000000000000000000000000000000000000000'})
-            - blocks.push({chain: 1, block: 2, magic: 74567, blockid: 2, coinvalue: '20.00', cointo: 'Sophia', txs: [{value: '4.55', from: 'Mark', to: 'Nichole', ref: '1'}, {value: '15.45', from: 'Mark', to: 'Mark', ref: '1'}], prev: '702ffc05b6d4bef3b0f63b129954ead150be1f4b8307319c46018c7726411c2a'})
-            - blocks.push({chain: 1, block: 3, magic: 74567, blockid: 3, coinvalue: '20.00', cointo: 'George', txs: [{value: '2.50', from: 'Sophia', to: 'Nichole', ref: '2'}, {value: '17.50', from: 'Sophia', to: 'Sophia', ref: '2'}, {value: '3.00', from: 'Mark', to: 'Nichole', ref: '2'}, {value: '12.45', from: 'Mark', to: 'Mark', ref: '2'}], prev: '09d1e551006ab0f50bda5c2ef0e823cd5b5cde32782697906a6960ec18c764f3'})
-            - blocks.push({chain: 1, block: 4, magic: 74567, blockid: 4, coinvalue: '20.00', cointo: 'Mark', txs: [{value: '4.90', from: 'Nichole', to: 'Sophia', ref: '2 3'}, {value: '2.15', from: 'Nichole', to: 'Nichole', ref: '2 3'}, {value: '4.09', from: 'Sophia', to: 'Andrei', ref: '3'}, {value: '13.41', from: 'Sophia', to: 'Sophia', ref: '3'}], prev: 'ec18d5fdef6db2b46271d41a39bccb4c14c52c3ddd20d07b6fd0395ffac0fa77'})
-            - blocks.push({chain: 1, block: 5, magic: 74567, blockid: 5, coinvalue: '20.00', cointo: 'George', txs: [{value: '1.00', from: 'George', to: 'Mark', ref: '3'}, {value: '19.00', from: 'George', to: 'George', ref: '3'}, {value: '4.00', from: 'Andrei', to: 'Mark', ref: '4'}, {value: '0.09', from: 'Andrei', to: 'Andrei', ref: '4'}], prev: 'db760502252d8daa24952cb8c5a6b051e7f5bd49f39a5578046f26cc42795040'})
-            - blocks.push({chain: 1, block: 6, magic: 74567, blockid: 6, coinvalue: '10.00', cointo: 'Mark', txs: [{value: '15.00', from: 'Mark', to: 'Sophia', ref: '4 5'}], prev: 'd424e182e78228f7cd6ca5493ac12d147a6664f97fcd6cb10632c59441abd0b4'})
+            - blocks.push({chain: 1, block: 2, magic: 74567, blockid: 2, coinvalue: '20.00', cointo: 'Sophia', txs: [{value: '4.55', from: 'Mark', to: 'Nichole', ref: '1', returnedValue: '15.45'}], prev: '702ffc05b6d4bef3b0f63b129954ead150be1f4b8307319c46018c7726411c2a'})
+            - blocks.push({chain: 1, block: 3, magic: 74567, blockid: 3, coinvalue: '20.00', cointo: 'George', txs: [{value: '2.50', from: 'Sophia', to: 'Nichole', ref: '2', returnedValue: '17.50'}, {value: '3.00', from: 'Mark', to: 'Nichole', ref: '2', returnedValue: '12.45'}], prev: 'e6725968282b7d98dd8e8cd10ff8ea2b76bb9a405f5405f24c4b6a6ed407dbbe'})
+            - blocks.push({chain: 1, block: 4, magic: 74567, blockid: 4, coinvalue: '20.00', cointo: 'Mark', txs: [{value: '4.90', from: 'Nichole', to: 'Sophia', ref: '2 3', returnedValue: '2.15'}, {value: '4.09', from: 'Sophia', to: 'Andrei', ref: '3', returnedValue: '13.41'}], prev: '3b565fdb494a34b274389fe62a2cb4231493b1b4e3c81f6b2542c8b1318e4640'})
+            - blocks.push({chain: 1, block: 5, magic: 74567, blockid: 5, coinvalue: '20.00', cointo: 'George', txs: [{value: '1.00', from: 'George', to: 'Mark', ref: '3', returnedValue: '19.00'}, {value: '4.00', from: 'Andrei', to: 'Mark', ref: '4', returnedValue: '0.09'}], prev: 'fb1c6c260f773c031022da0167beaa5d5c5b63d733aad4d207c619f22232c52a'})
+            - blocks.push({chain: 1, block: 6, magic: 74567, blockid: 6, coinvalue: '10.00', cointo: 'Mark', txs: [{value: '14.50', from: 'Mark', to: 'Sophia', ref: '4 5', returnedValue: '10.50'}], prev: '31fbdab72e3a87911bf7211ea70385273577040162f71b84051fd658f3ce56cf'})
             each coinbaseblock in blocks
                 div.col-lg-6
                     include includes/coinbaseblock
@@ -23,10 +23,13 @@ block layout-content
                         $('#chain'+chain+'block'+block+'cointo').val();
             
             for(var i = 0; $('#chain'+chain+'block'+block+'tx'+i+'value').length>0; i++){
-                text += $('#chain'+chain+'block'+block+'tx'+i+'value').val()+
+                text += $('#chain'+chain+'block'+block+'tx'+i+'ref').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'value').val()+
                         $('#chain'+chain+'block'+block+'tx'+i+'from').val()+
                         $('#chain'+chain+'block'+block+'tx'+i+'to').val()+
-                        $('#chain'+chain+'block'+block+'tx'+i+'ref').val();
+                        $('#chain'+chain+'block'+block+'tx'+i+'returnedValue').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'returnedFrom').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'returnedTo').val();
             }
 
             text += $('#chain'+chain+'block'+block+'prev').val();
@@ -82,6 +85,17 @@ block layout-content
 
             //txs
             for(var i = 0; $('#chain'+chain+'block'+block+'tx'+i+'value').length>0; i++){
+                //tx ref
+                $('#chain'+chain+'block'+block+'tx'+i+'ref').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9 ]/g, '').replace(/ +/g,' ').replace(/^ /g, '');
+                    updateBlockchain(chain, block, #{blocks.length});
+                });
+
+                $('#chain'+chain+'block'+block+'tx'+i+'ref').bind('focusout', function() {
+                    this.value = this.value.replace(/ $/g, '');
+                    updateBlockchain(chain, block, #{blocks.length});
+                });
+
                 //tx value
                 $('#chain'+chain+'block'+block+'tx'+i+'value').bind('input propertychange', function() {
                         this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
@@ -101,16 +115,24 @@ block layout-content
                 //tx to
                 $('#chain'+chain+'block'+block+'tx'+i+'to').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
 
-                //tx ref
-                $('#chain'+chain+'block'+block+'tx'+i+'ref').bind('input propertychange', function() {
-                    this.value = this.value.replace(/[^0-9 ]/g, '').replace(/ +/g,' ').replace(/^ /g, '');
-                    updateBlockchain(chain, block, #{blocks.length});
-                });
+                //tx returned value
+                $('#chain'+chain+'block'+block+'tx'+i+'returnedValue').bind('input propertychange', function() {
+                        this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+                        updateBlockchain(chain, block, #{blocks.length});
+                    });
 
-                $('#chain'+chain+'block'+block+'tx'+i+'ref').bind('focusout', function() {
-                    this.value = this.value.replace(/ $/g, '');
-                    updateBlockchain(chain, block, #{blocks.length});
-                });
+                $('#chain'+chain+'block'+block+'tx'+i+'returnedValue').bind('focusout', function() {
+                        if(this.value==''){
+                            this.value='0';
+                            updateBlockchain(chain, block, #{blocks.length});
+                        }
+                    });
+
+                //tx returned from
+                $('#chain'+chain+'block'+block+'tx'+i+'returnedFrom').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
+
+                //tx returned to
+                $('#chain'+chain+'block'+block+'tx'+i+'returnedTo').bind('input propertychange', function() { updateBlockchain(chain, block, #{blocks.length}); });
             }
 
             //prev

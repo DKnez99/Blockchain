@@ -23,11 +23,25 @@ function validPrev(chain, block){
   return $('#chain'+chain+'block'+block+'prev').val()==$('#chain'+chain+'block'+(block-1).toString()+'hash').val();
 }
 
+function validCoinbase(chain, block){
+  return parseFloat($('#chain'+chain+'block'+block+'coin').val())==parseFloat(20.0/Math.pow(2,parseInt((block-1)/5)));
+}
+
+function validReturnedTo(chain, block, tx){
+  return $('#chain'+chain+'block'+block+'tx'+tx+'from').val()==$('#chain'+chain+'block'+block+'tx'+tx+'returnedTo').val();
+}
+
+function validReturnedFrom(chain, block, tx){
+  return $('#chain'+chain+'block'+block+'tx'+tx+'from').val()==$('#chain'+chain+'block'+block+'tx'+tx+'returnedFrom').val();
+}
+
 function validRef(chain, block, chainSize, tx, txSize){
   if(block==1){
     return true;
   }
-  
+
+  var spentSum = $('#chain'+chain+'block'+block+'tx'+tx+'value').val()+$('#chain'+chain+'block'+block+'tx'+tx+'returnedValue').val();
+  //FINISH THIS
 }
 
 function updateBlockchain(chain, block, chainSize) {
