@@ -12,25 +12,29 @@ block layout-content
                             textarea#data.form-control(rows='10')
 
                     div.row.mb-3
-                        label.col-sm-2.control-label.pt-2(for='md5') MD5:
+                        label.col-sm-2.control-label.pt-2(for='md5', data-toggle='tooltip', data-bs-placement='left',
+                            title='Designed in 1991. Cryptographically broken. Produces a 128-bit hash (32 hx digits).') MD5:
                         div.col-sm-10
                             input#md5.form-control(type='text', disabled)
 
                     div.row.mb-3
-                        label.col-sm-2.control-label.pt-2(for='sha1') SHA1:
+                        label.col-sm-2.control-label.pt-2(for='sha1', data-toggle='tooltip', data-bs-placement='left',
+                            title='Published in 1995. Susceptible to collision attacks. Produces a 160-bit hash (40 hx digits).') SHA1:
                         div.col-sm-10
                             input#sha1.form-control(type='text', disabled)
 
                     div.row.mb-3
-                        label.col-sm-2.control-label.pt-2(for='sha256') SHA256:
+                        label.col-sm-2.control-label.pt-2(for='sha256', data-toggle='tooltip', data-bs-placement='left',
+                            title='Published in 2001. Widely used today. Produces a 256-bit hash (64 hx digits). We will use it as a hashing algorithm.') SHA256:
                         div.col-sm-10
                             input#sha256.form-control(type='text', disabled)
 
                     div.row.mb-3
-                        label.col-sm-2.control-label.pt-2(for='sha512') SHA512:
+                        label.col-sm-2.control-label.pt-2(for='sha512', data-toggle='tooltip', data-bs-placement='left',
+                            title='Published in 2001. Part of the same SHA-2 family together with SHA-256. Produces a 512-bit hash (128 hx digits).') SHA512:
                         div.col-sm-10
                             input#sha512.form-control(type='text', disabled)
-
+    
     script.
         function getText(chain, block){
             return $('#data').val();
@@ -48,4 +52,5 @@ block layout-content
                 $('#sha256').val(sha256());
                 $('#sha512').val(sha512());
             });
+            $('[data-toggle="tooltip"]').tooltip(); //initialize tooltips
         });
