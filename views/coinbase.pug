@@ -43,7 +43,7 @@ block layout-content
             //magic
             $('#chain'+chain+'block'+block+'magic').bind('input propertychange', function() {
                     this.value = this.value.replace(/[^0-9]/g, '');
-                    updateBlockhain(chain, block, #{blocks.length});
+                    updateCoinbaseBlockchain(chain, block, #{blocks.length});
                 });
 
             $('#chain'+chain+'block'+block+'magic').bind('focusout', function() {
