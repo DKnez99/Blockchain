@@ -1,0 +1,50 @@
+extends layout
+
+block layout-content
+    div.container
+        h1.text-center.mt-4.mb-4 PRIVATE/PUBLIC KEY PAIRS
+        div.card.bg-light
+            div.card-body
+                form
+                    div.row.mb-3
+                        label.col-sm-2.control-label.pt-2(for='private', data-toggle='tooltip', data-bs-placement='left',
+                            title='Private key title') Private Key:
+                        div.col-sm-10
+                            input#private.form-control(type='text')
+
+                    div.row.mb-3
+                        label.col-sm-2.control-label.pt-2(for='public', data-toggle='tooltip', data-bs-placement='left',
+                            title='Public key title') Public Key:
+                        div.col-sm-10
+                            input#public.form-control(type='text', disabled)
+    
+    script.
+        var EC = elliptic.ec;
+        var ec = new EC('secp256k1');
+
+        var keypair = ec.genKeyPair();
+
+        function update() {
+            var prv = keypair.getPrivate('hex');
+            var pub = keypair.getPublic('hex');
+            $('#private').val(bigInt(prv, 16).toString());
+            $('#public').val(pub);
+        }
+
+        function random() {
+            keypair = ec.genKeyPair();
+            update();
+        }
+
+        $(function() {
+            //$('#randomButton').click(random);
+            $('#private').bind('input propertychange', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if(this.value=='' || this.value==0)
+                    this.value='1';
+                keypair = ec.keyFromPrivate(bigInt($('#private').val()).toString(16));
+                update();
+            });
+
+            update();
+        });

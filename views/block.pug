@@ -2,7 +2,7 @@ extends layout
 
 block layout-content
     div.container
-        h1.text-center.mt-3.mb-3 BLOCK
+        h1.text-center.mt-4.mb-4 BLOCK
         div.card.bg-light
             div.card-body
                 form
@@ -11,14 +11,14 @@ block layout-content
                         div.col-sm-10
                             div.input-group 
                                 span.input-group-text #
-                                input#magic.form-control(type='number', value='51948', min='0', step='1', onfocus='this.previousValue = this.value', onkeydown='this.previousValue = this.value', oninput='validity.valid||(value=this.previousValue);')
+                                input#magic.form-control(type='text', value='51948')
 
                     div.mb-3.row
                         label.col-sm-2.control-label.pt-2(for='blockid') Block:
                         div.col-sm-10
                             div.input-group 
                                 span.input-group-text #
-                                input#blockid.form-control(type='number', value='14', min='0', step='1', onfocus='this.previousValue = this.value', onkeydown='this.previousValue = this.value', oninput='validity.valid||(value=this.previousValue);')
+                                input#blockid.form-control(type='text', value='14')
 
                     div.mb-3.row
                         label.col-sm-2.col-form-label(for='data') Data:
@@ -39,16 +39,29 @@ block layout-content
 
         $(function() {
             $('#magic').bind('input propertychange', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
                 $('#hash').val(sha256());    
             });
 
-            $('#magic').bind('input propertychange', function() {
-                $('#hash').val(sha256());
+            $('#magic').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    $('#hash').val(sha256());
+                }
             });
 
             $('#blockid').bind('input propertychange', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
                 $('#hash').val(sha256());
             });
+
+            $('#blockid').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    $('#hash').val(sha256());
+                }
+            });
+
             $('#data').bind('input propertychange', function() {
                 $('#hash').val(sha256());
             });

@@ -2,7 +2,7 @@ extends layout
 
 block layout-content
     div.container-fluid
-        h1.text-center.mt-3.mb-3 TRANSACTIONS
+        h1.text-center.mt-4.mb-4 TRANSACTIONS
         div.row.row-horizon(style='flex-wrap: nowrap')
             - var blocks = []
             - blocks.push({chain: 1, block: 1, magic: 74567, blockid: 1, txs: [{value: '10.44', from: 'Sophia', to: 'Mark'}, {value: '0.95', from: 'Yamato', to: 'Mark'}, {value: '11.20', from: 'Yamato', to: 'Luke'}], prev: '0000000000000000000000000000000000000000000000000000000000000000'})

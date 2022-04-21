@@ -13,22 +13,30 @@ html
     script(src='javascripts/lib/jquery-3.6.0.min.js')
     script(src='javascripts/lib/bootstrap.bundle.min.js')
     script(src='javascripts/lib/crypto-js.js')
+    script(src='javascripts/lib/bigInteger.min.js')
+    //script(src='javascripts/lib/elliptic.js')
+    script(src='javascripts/lib/elliptic.min.js')
+    //script(src='javascripts/bundle.js')
     script(src='javascripts/chf.js')
     script(src='javascripts/blockchain.js')
     
     
   body
-    nav.navbar.navbar-expand-lg.navbar-light.bg-light
-        .container-fluid
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-secondary
+        div.container
             a.navbar-brand(href='/')
                 img(src="/icons/chain.svg", width="42", height="42")
             button.navbar-toggler(type='button', data-bs-toggle="collapse", data-bs-target="#navbar", aria-controls="navbar", aria-expanded="false", aria-label="Toggle navigation")
                 span.navbar-toggler-icon
             div#navbar.collapse.navbar-collapse
-                div.navbar-nav
+                div.navbar-nav.me-auto
                     a.nav-link(href='/chf', class={active: page === 'chf'}) Hash
                     a.nav-link(href='/block', class={active: page === 'block'}) Block
                     a.nav-link(href='/blockchain', class={active: page === 'blockchain'}) Blockchain
                     a.nav-link(href='/transactions', class={active: page === 'transactions'}) Transactions
                     a.nav-link(href='/coinbase', class={active: page === 'coinbase'}) Coinbase
+                    a.nav-link(href='/keys', class={active: page === 'keys'}) Keys
+                div.navbar-nav
+                    a.nav-link(href='/references', class={active: page === 'references'}) References
+                    a.nav-link(href='/about', class={active: page === 'about'}) About      
     block layout-content
