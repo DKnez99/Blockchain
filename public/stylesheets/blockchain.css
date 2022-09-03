@@ -2,6 +2,10 @@
   background-color: rgba(250, 200, 200)!important;
 }
 
+.card-success{
+  background-color: rgba(200, 250, 200)!important;
+}
+
 .input-error{
   color: rgb(230, 10, 10)!important;
   font-weight: 600!important;

@@ -1,0 +1,163 @@
+extends layout
+
+block layout-content
+    div.container
+        h1.text-center.mt-4.mb-4 SIGNATURES
+
+        div#senderCard.card.bg-light
+            div.card-body
+                div.mb-3.text-center
+                    h4 Sender
+                form
+                    div.row.mb-3
+                        label.col-sm-2.control-label.pt-2(for='private', data-toggle='tooltip', data-bs-placement='left', maxlength='12'
+                            title='Private key title') Private Key:
+                        div.col-sm-10
+                            .input-group
+                                input#private.form-control(type='text')
+                                span.input-group-button
+                                    button.btn.btn-secondary#randomButton(type='button') Random 
+
+                    div.mb-3.row
+                        label.col-sm-2.col-form-label(for='senderMsg') Message:
+                        div.col-sm-10
+                            textarea#senderMsg.form-control(rows='5')
+
+                    div.mb-3.text-center
+                        button.btn.btn-secondary#signButton(type='button') Sign and Send 
+
+                    div.row
+                        label.col-sm-2.control-label.pt-2(for='senderSignature', data-toggle='tooltip', data-bs-placement='left',
+                            title='Sender signature') Signature:
+                        div.col-sm-10
+                            input#senderSignature.form-control(type='text', disabled)
+
+       
+        div#receiverCard.card.bg-light.mt-3
+                    div.card-body
+                        div.mb-3.text-center
+                            h4 Receiver
+                        form
+                            div.row.mb-3
+                                label.col-sm-2.control-label.pt-2(for='private', data-toggle='tooltip', data-bs-placement='left', maxlength='12'
+                                    title='Private key title') Public Key:
+                                div.col-sm-10
+                                    .input-group
+                                        input#public.form-control(type='text')
+                                        span.input-group-button
+                                            button.btn.btn-secondary#generateButton(type='button') Generate 
+
+                            div.mb-3.row
+                                label.col-sm-2.col-form-label(for='receiverMsg') Message:
+                                div.col-sm-10
+                                    textarea#receiverMsg.form-control(rows='5')
+
+                            div.mb-3.row
+                                label.col-sm-2.control-label.pt-2(for='receiverSignature', data-toggle='tooltip', data-bs-placement='left',
+                                    title='Receiver signature') Signature:
+                                div.col-sm-10
+                                    input#receiverSignature.form-control(type='text')
+                            
+                            div.text-center
+                                button.btn.btn-secondary#verifyButton(type='button') Verify
+    
+    script.
+        var EC = elliptic.ec;
+        var ec = new EC('secp256k1');
+
+        var keypair = ec.genKeyPair();
+
+
+        function random() {
+            keypair = ec.genKeyPair();
+            var prv = keypair.getPrivate('hex');
+            $('#private').val(bigInt(prv, 16).toString());
+        }
+
+        $(function() {
+            random();
+
+            function resetReceiverColor(){
+                $('#receiverCard').removeClass('card-success').removeClass('card-error').addClass('bg-light');
+            }
+
+            function resetSignature(){
+                resetReceiverColor();
+                $('#senderSignature').val('');
+                $('#receiverSignature').val('');
+                $('#public').val('');
+                $('#receiverMsg').val('');
+            }
+
+            //private key
+            $('#private').bind('input propertychange', function() {
+                resetSignature();
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if(this.value=='' || this.value==0)
+                    this.value='1';
+                keypair = ec.keyFromPrivate(bigInt($('#private').val()).toString(16));
+            });
+
+            //random button
+            $('#randomButton').click(function(){
+                resetSignature();
+                random();
+            });
+            
+            //sender message
+            $('#senderMsg').bind('input propertychange',resetSignature);
+
+            //sign and send button
+            $('#signButton').click(function(){
+                resetReceiverColor();
+                $('#receiverMsg').val($('#senderMsg').val())
+                var binaryMsg = buffer.Buffer.from(CryptoJS.SHA256($('#senderMsg').val()).toString(CryptoJS.enc.Hex));
+                var hexSignature = buffer.Buffer.from(keypair.sign(binaryMsg).toDER()).toString('hex');
+                $('#senderSignature').val(hexSignature);
+                $('#receiverSignature').val(hexSignature);
+                update();
+            });
+
+            //generate button
+            $('#generateButton').click(update);
+
+            //public key
+            $('#public').bind('input propertychange', function() {
+                resetReceiverColor();
+                this.value = this.value.replace(/[^0-9a-fA-F]/g, '');
+                if(this.value=='' || this.value==0)
+                    this.value='1';
+            });
+
+            //public key
+            $('#receiverMsg').bind('input propertychange', resetReceiverColor);
+
+            //verify button
+            $('#verifyButton').click(function(){
+                var temp;
+                try{
+                    var temp=ec.keyFromPublic($('#public').val(),'hex');
+                    var binaryMsg=buffer.Buffer.from(CryptoJS.SHA256($('#receiverMsg').val()).toString(CryptoJS.enc.Hex));
+                    if(temp.verify(binaryMsg,$('#receiverSignature').val())){
+                        console.log('success');
+                        $('#receiverCard').removeClass('bg-light').removeClass('card-error').addClass('card-success');
+                    }
+                    else{
+                        console.log('failure');
+                        $('#receiverCard').removeClass('bg-light').removeClass('card-success').addClass('card-error');
+                    }
+                }
+                catch(e){
+                    console.log('failure, '+e.toString());
+                    $('#receiverCard').removeClass('bg-light').removeClass('card-success').addClass('card-error');
+                }
+            });
+
+
+
+        });
+
+        function update() {
+            var pub = keypair.getPublic('hex');
+            $('#public').val(pub);
+        }

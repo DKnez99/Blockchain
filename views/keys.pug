@@ -7,11 +7,13 @@ block layout-content
             div.card-body
                 form
                     div.row.mb-3
-                        label.col-sm-2.control-label.pt-2(for='private', data-toggle='tooltip', data-bs-placement='left',
+                        label.col-sm-2.control-label.pt-2(for='private', data-toggle='tooltip', data-bs-placement='left', maxlength='12'
                             title='Private key title') Private Key:
                         div.col-sm-10
-                            input#private.form-control(type='text')
-
+                            .input-group
+                                input#private.form-control(type='text')
+                                span.input-group-button
+                                    button.btn.btn-secondary#randomButton(type='button') Random
                     div.row.mb-3
                         label.col-sm-2.control-label.pt-2(for='public', data-toggle='tooltip', data-bs-placement='left',
                             title='Public key title') Public Key:
@@ -24,20 +26,17 @@ block layout-content
 
         var keypair = ec.genKeyPair();
 
-        function update() {
-            var prv = keypair.getPrivate('hex');
-            var pub = keypair.getPublic('hex');
-            $('#private').val(bigInt(prv, 16).toString());
-            $('#public').val(pub);
-        }
 
         function random() {
             keypair = ec.genKeyPair();
+            var prv = keypair.getPrivate('hex');
+            $('#private').val(bigInt(prv, 16).toString());
             update();
         }
 
         $(function() {
-            //$('#randomButton').click(random);
+            random();
+            $('#randomButton').click(random);
             $('#private').bind('input propertychange', function() {
                 this.value = this.value.replace(/[^0-9]/g, '');
                 if(this.value=='' || this.value==0)
@@ -45,6 +44,9 @@ block layout-content
                 keypair = ec.keyFromPrivate(bigInt($('#private').val()).toString(16));
                 update();
             });
-
-            update();
         });
+
+        function update() {
+            var pub = keypair.getPublic('hex'); 
+            $('#public').val(pub);
+        }
