@@ -1,0 +1,67 @@
+div.card.bg-light(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'card')
+    div.card-body
+        form
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+signedandidblock.chain+'block'+signedandidblock.block+'magic') Magic:
+                div.col-sm-10
+                    div.input-group 
+                        span.input-group-text #
+                        input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'magic', type='text', value=signedandidblock.magic)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+signedandidblock.chain+'block'+signedandidblock.block+'blockid') Block:
+                div.col-sm-10
+                    div.input-group 
+                        span.input-group-text #
+                        input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'blockid', type='text', value=signedandidblock.blockid)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+signedandidblock.chain+'block'+signedandidblock.block+'coin') Coinbase:
+                div.col-sm-10
+                    div.input-group 
+                        span.input-group-text £
+                        input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'coinvalue', type='text', value=signedandidblock.coinvalue)
+                        span.input-group-text To:
+                        input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'cointo', type='text', value=signedandidblock.cointo)
+            
+            div.row
+                label.col-sm-2.col-form-label(for='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx') Tx:
+                div.col-sm-10
+                    each tx, i in signedandidblock.txs
+                        div.mb-3
+                            div.input-group 
+                                span.input-group-text References
+                                input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx'+i+'ref', type='text', value=tx.ref)
+                            div.input-group 
+                                span.input-group-text ID:
+                                input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx'+i+'id', type='text', value=tx.id)
+                                span.input-group-text £
+                                input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx'+i+'value', type='text', value=tx.value)
+                                span.input-group-text From:
+                                input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx'+i+'from', type='text', value=tx.from)
+                                span.input-group-text To:
+                                input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx'+i+'to', type='text', value=tx.to)
+                                span.input-group-text Signature:
+                                input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx'+i+'signature', type='text', value=tx.signature)
+                            div.input-group
+                                span.input-group-text ID:
+                                input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx'+i+'returnedId', type='text', value=parseInt(tx.id)+1)
+                                span.input-group-text £
+                                input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx'+i+'returnedValue', type='text', value=tx.returnedValue)
+                                span.input-group-text From:
+                                input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx'+i+'returnedFrom', type='text', value=tx.from)
+                                span.input-group-text To:
+                                input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx'+i+'returnedTo', type='text', value=tx.from)
+                                
+                                span.input-group-text Signature:
+                                input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'tx'+i+'returnedSignature', type='text', value=tx.returnedSignature)
+            
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+signedandidblock.chain+'block'+signedandidblock.block+'prev') Prev:
+                div.col-sm-10
+                    input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'prev', type='text', value=signedandidblock.prev)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+signedandidblock.chain+'block'+signedandidblock.block+'hash') Hash:
+                div.col-sm-10
+                    input.form-control(id='chain'+signedandidblock.chain+'block'+signedandidblock.block+'hash', type='text', disabled)
