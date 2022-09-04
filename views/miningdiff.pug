@@ -1,0 +1,39 @@
+extends layout
+
+block layout-content
+    div.container
+        h1.text-center.mt-4.mb-4 MINING DIFFICULTY
+        div.card.bg-light
+            div.card-body
+                form
+                    div.row.mb-3
+                        label.col-sm-2.control-label.pt-2(for='difficulty', data-toggle='tooltip', data-bs-placement='left',
+                            title='Difficulty title') Difficulty:
+                        div.col-sm-10
+                            input#difficulty.form-control(type='text',value='4')
+                    div.row.mb-3
+                        label.col-sm-2.control-label.pt-2(for='maxhash', data-toggle='tooltip', data-bs-placement='left',
+                            title='Max hash title') Max hash value:
+                        div.col-sm-10
+                            input#maxhash.form-control(type='text', value='16', disabled)
+    
+    script.
+        $(function() {
+            $('#difficulty').bind('input propertychange', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                update();
+            });
+
+            $('#difficulty').bind('focusout', function() {
+                if(this.value=='')
+                    this.value='0';
+                update();
+            });
+            
+        });
+
+        function update() {
+            var diff= parseInt($('#difficulty').val());
+            var hash = diff*4;
+            $('#maxhash').val(hash);
+        }

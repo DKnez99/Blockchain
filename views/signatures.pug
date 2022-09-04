@@ -64,10 +64,8 @@ block layout-content
     script.
         var EC = elliptic.ec;
         var ec = new EC('secp256k1');
-
         var keypair = ec.genKeyPair();
-
-
+        
         function random() {
             keypair = ec.genKeyPair();
             var prv = keypair.getPrivate('hex');
@@ -152,9 +150,6 @@ block layout-content
                     $('#receiverCard').removeClass('bg-light').removeClass('card-success').addClass('card-error');
                 }
             });
-
-
-
         });
 
         function update() {
