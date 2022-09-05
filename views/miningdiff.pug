@@ -7,18 +7,21 @@ block layout-content
             div.card-body
                 form
                     div.row.mb-3
-                        label.col-sm-2.control-label.pt-2(for='difficulty', data-toggle='tooltip', data-bs-placement='left',
-                            title='Difficulty title') Difficulty:
+                        label.col-sm-2.control-label.pt-2(for='difficulty', data-toggle='tooltip', data-bs-placement='left') Difficulty:
                         div.col-sm-10
-                            input#difficulty.form-control(type='text',value='4')
+                            input#difficulty.form-control(type='number',value='4', max='256')
                     div.row.mb-3
-                        label.col-sm-2.control-label.pt-2(for='maxhash', data-toggle='tooltip', data-bs-placement='left',
-                            title='Max hash title') Max hash value:
+                        label.col-sm-2.control-label.pt-2(for='maxhashbin', data-toggle='tooltip', data-bs-placement='left') Max hash value (bin):
                         div.col-sm-10
-                            input#maxhash.form-control(type='text', value='16', disabled)
+                            input#maxhashbin.form-control(type='text', value='', disabled)
+                    div.row.mb-3
+                        label.col-sm-2.control-label.pt-2(for='maxhashhex', data-toggle='tooltip', data-bs-placement='left') Max hash value (hex):
+                        div.col-sm-10
+                            input#maxhashhex.form-control(type='text', value='', disabled)
     
     script.
         $(function() {
+            update();
             $('#difficulty').bind('input propertychange', function() {
                 this.value = this.value.replace(/[^0-9]/g, '');
                 update();
@@ -34,6 +37,18 @@ block layout-content
 
         function update() {
             var diff= parseInt($('#difficulty').val());
-            var hash = diff*4;
-            $('#maxhash').val(hash);
+            var numOfZerosHex=diff/4;
+            
+            var hashHex = "0".repeat(numOfZerosHex);
+            switch(diff%4){
+                case 0:hashHex+="";break;
+                case 1:hashHex+="7";break;
+                case 2:hashHex+="3";break;
+                case 3:hashHex+="1";break;
+            }
+            hashHex+="f".repeat(64-numOfZerosHex);
+            $('#maxhashhex').val(hashHex);
+
+            var hashBin="0".repeat(diff)+"1".repeat(256-diff);
+            $('#maxhashbin').val(hashBin);
         }
