@@ -1,0 +1,79 @@
+div.card.card-success(id='chain'+miningblock.chain+'block'+miningblock.block+'card')
+    div.card-body
+        form
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+miningblock.chain+'block'+miningblock.block+'magic') Magic:
+                div.col-sm-10
+                    div.input-group 
+                        span.input-group-text #
+                        input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'magic', type='text', value=miningblock.magic)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+miningblock.chain+'block'+miningblock.block+'blockid') Block:
+                div.col-sm-10
+                    div.input-group 
+                        span.input-group-text #
+                        input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'blockid', type='text', value=miningblock.blockid)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+miningblock.chain+'block'+miningblock.block+'coin') Coinbase:
+                div.col-sm-10
+                    div.input-group 
+                        span.input-group-text £
+                        input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'coinvalue', type='text', value=miningblock.coinvalue)
+                        span.input-group-text To:
+                        input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'cointo', type='text', value=miningblock.cointo)
+            
+            div.row
+                label.col-sm-2.col-form-label(for='chain'+miningblock.chain+'block'+miningblock.block+'tx') Tx:
+                div.col-sm-10
+                    each tx, i in miningblock.txs
+                        div.mb-3
+                            div.input-group 
+                                span.input-group-text References
+                                input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'tx'+i+'ref', type='text', value=tx.ref)
+                            div.input-group 
+                                span.input-group-text ID:
+                                input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'tx'+i+'id', type='text', value=tx.id)
+                                span.input-group-text £
+                                input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'tx'+i+'value', type='text', value=tx.value)
+                                span.input-group-text From:
+                                input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'tx'+i+'from', type='text', value=tx.from)
+                                span.input-group-text To:
+                                input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'tx'+i+'to', type='text', value=tx.to)
+                                span.input-group-text Signature:
+                                input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'tx'+i+'signature', type='text', value=tx.signature)
+                            div.input-group
+                                span.input-group-text ID:
+                                input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'tx'+i+'returnedId', type='text', value=parseInt(tx.id)+1)
+                                span.input-group-text £
+                                input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'tx'+i+'returnedValue', type='text', value=tx.returnedValue)
+                                span.input-group-text From:
+                                input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'tx'+i+'returnedFrom', type='text', value=tx.from)
+                                span.input-group-text To:
+                                input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'tx'+i+'returnedTo', type='text', value=tx.from)
+                                
+                                span.input-group-text Signature:
+                                input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'tx'+i+'returnedSignature', type='text', value=tx.returnedSignature)
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+miningblock.chain+'block'+miningblock.block+'diff') Diff:
+                div.col-sm-10
+                    input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'diff', type='text', value=miningblock.diff)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+miningblock.chain+'block'+miningblock.block+'nonce') Nonce:
+                div.col-sm-10
+                    input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'nonce', type='text', value=miningblock.nonce)
+
+            div.mb-3.row
+                label.col-sm-2.control-label.pt-2(for='chain'+miningblock.chain+'block'+miningblock.block+'prev') Prev:
+                div.col-sm-10
+                    input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'prev', type='text', value=miningblock.prev)
+
+            div.mb-5.row
+                label.col-sm-2.control-label.pt-2(for='chain'+miningblock.chain+'block'+miningblock.block+'hash') Hash:
+                div.col-sm-10
+                    input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'hash', type='text', disabled)
+            
+            div.mb-3.text-center
+                button.btn.btn-secondary(id='chain'+miningblock.chain+'block'+miningblock.block+'mineBtn', type='button') Mine

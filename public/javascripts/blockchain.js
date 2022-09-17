@@ -243,6 +243,25 @@ function validSignedTx(chain, block){
   return true;
 }
 
+function validNonce(chain,block){
+  var diff= parseInt($('#chain'+chain+'block'+block+'diff').val());
+  var numOfZerosHex=diff/4;
+  
+  var hashStart = "0".repeat(numOfZerosHex);
+  switch(diff%4){
+      case 0:hashStart+="";break;
+      case 1:hashStart+="7";break;
+      case 2:hashStart+="3";break;
+      case 3:hashStart+="1";break;
+  }
+
+  var currHash=$('#chain'+chain+'block'+block+'hash').val();
+
+  if(currHash.startsWith(hashStart)){
+    return true;
+  }
+  return false;
+}
 
 function updateBlockchain(chain, block, chainSize) {
   updateHash(chain, block);
@@ -632,6 +651,232 @@ function updateSignedBlockchain(chain, block, chainSize) {
           $('#chain'+chain+'block'+i+'tx'+k+'returnedSignature').removeClass('input-error');
         }
       }
+    }
+  }
+}
+
+function updateMiningBlockchain(chain, block, chainSize) {
+  updateHash(chain, block);
+
+  for(var i = 1; i<=chainSize; i++){
+    if(validMagic(chain, i) && validBlockId(chain, i) && validPrev(chain, i) && validCoinbase(chain, i) && validSignedTx(chain, i) && validNonce(chain,i)){  //no errors in the current block
+      $('#chain'+chain+'block'+i+'magic').removeClass('input-error');
+      $('#chain'+chain+'block'+i+'blockid').removeClass('input-error');
+      $('#chain'+chain+'block'+i+'coinvalue').removeClass('input-error');
+
+      for(let k = 0; $('#chain'+chain+'block'+i+'tx'+k+'value').length>0; k++){ //go through all tx in block
+        $('#chain'+chain+'block'+i+'tx'+k+'ref').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'tx'+k+'id').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'tx'+k+'value').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'tx'+k+'from').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'tx'+k+'to').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'tx'+k+'signature').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'tx'+k+'returnedId').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'tx'+k+'returnedValue').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'tx'+k+'returnedFrom').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'tx'+k+'returnedTo').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'tx'+k+'returnedSignature').removeClass('input-error');
+      }
+
+      $('#chain'+chain+'block'+i+'diff').removeClass('input-error');
+      $('#chain'+chain+'block'+i+'nonce').removeClass('input-error');
+      $('#chain'+chain+'block'+i+'prev').removeClass('input-error');
+      $('#chain'+chain+'block'+i+'hash').removeClass('input-error');
+      $('#chain'+chain+'block'+(i-1).toString()+'hash').removeClass('input-error');
+
+      if($('#chain'+chain+'block'+(i-1).toString()+'card').hasClass('card-error')){ //previous card had an error
+        $('#chain'+chain+'block'+i+'card').removeClass('card-success').addClass('card-error');
+      }
+      else{ //previous card had NO errors
+        $('#chain'+chain+'block'+i+'card').removeClass('card-error').addClass('card-success');
+      }
+    }
+    else{ //error(s) in the current block
+      $('#chain'+chain+'block'+i+'card').removeClass('card-success').addClass('card-error');
+
+      if(!validPrev(chain, i)){
+        $('#chain'+chain+'block'+(i-1).toString()+'card').removeClass('card-success').addClass('card-error');
+        $('#chain'+chain+'block'+(i-1).toString()+'hash').addClass('input-error');
+        $('#chain'+chain+'block'+i+'prev').addClass('input-error');
+      }
+      else{
+        $('#chain'+chain+'block'+(i-1).toString()+'hash').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'prev').removeClass('input-error');
+      }
+
+      if(!validMagic(chain, i)){
+        $('#chain'+chain+'block'+i+'magic').addClass('input-error');
+      }
+      else{
+        $('#chain'+chain+'block'+i+'magic').removeClass('input-error');
+      }
+
+      if(!validBlockId(chain, i)){
+        $('#chain'+chain+'block'+i+'blockid').addClass('input-error');
+      }
+      else{
+        $('#chain'+chain+'block'+i+'blockid').removeClass('input-error');
+      }
+
+      if(!validCoinbase(chain, i)){
+        $('#chain'+chain+'block'+i+'coinvalue').addClass('input-error');
+      }
+      else{
+        $('#chain'+chain+'block'+i+'coinvalue').removeClass('input-error');
+      }
+
+      if(!validNonce(chain, i)){
+        $('#chain'+chain+'block'+i+'diff').addClass('input-error');
+        $('#chain'+chain+'block'+i+'nonce').addClass('input-error');
+        $('#chain'+chain+'block'+i+'hash').addClass('input-error');
+
+      }
+      else{
+        $('#chain'+chain+'block'+i+'diff').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'nonce').removeClass('input-error');
+        $('#chain'+chain+'block'+i+'hash').removeClass('input-error');
+      }
+
+      for(let k = 0; $('#chain'+chain+'block'+i+'tx'+k+'value').length>0; k++){ //go through all tx in block
+        var refIsValid=true;
+        var idIsValid=true;
+        var valueIsValid=true;
+        var fromIsValid=true;
+        var toIsValid=true;
+        var signatureIsValid=true;
+        var returnedIdIsValid=true;
+        var returnedValueIsValid=true;
+        var returnedFromIsValid=true;
+        var returnedToIsValid=true;
+        var returnedSignatureIsValid=true;
+
+        if(!validRef(chain, i, k)){
+          refIsValid=false;
+          valueIsValid=false;
+          returnedValueIsValid=false;
+          fromIsValid=false;
+          returnedFromIsValid=false;
+        }
+
+        if(!validId(chain, i, k)){
+          idIsValid=false;
+        }
+
+        if(!validValue(chain, i, k)){
+          valueIsValid=false;
+        }
+
+        if(!validSignature(chain,i,k)){
+          signatureIsValid=false;
+        }
+
+        if(!validReturnedId(chain,i,k)){
+          returnedIdIsValid=false;
+        }
+
+        if(!validReturnedFrom(chain, i, k)){
+          fromIsValid=false;
+          returnedFromIsValid=false;
+        }
+        
+        if(!validReturnedTo(chain, i, k)){
+          returnedToIsValid=false;
+          returnedFromIsValid=false;
+        }
+
+        if(!validReturnedSignature(chain,i,k)){
+          returnedSignatureIsValid=false;
+        }
+
+        if(refIsValid==false){
+          $('#chain'+chain+'block'+i+'tx'+k+'ref').addClass('input-error');
+        }
+        else{
+          $('#chain'+chain+'block'+i+'tx'+k+'ref').removeClass('input-error');
+        }
+
+        if(idIsValid==false){
+          $('#chain'+chain+'block'+i+'tx'+k+'id').addClass('input-error');
+        }
+        else{
+          $('#chain'+chain+'block'+i+'tx'+k+'id').removeClass('input-error');
+        }
+
+        if(valueIsValid==false){
+          $('#chain'+chain+'block'+i+'tx'+k+'value').addClass('input-error');
+        }
+        else{
+          $('#chain'+chain+'block'+i+'tx'+k+'value').removeClass('input-error');
+        }
+
+        if(fromIsValid==false){
+          $('#chain'+chain+'block'+i+'tx'+k+'from').addClass('input-error');
+        }
+        else{
+          $('#chain'+chain+'block'+i+'tx'+k+'from').removeClass('input-error');
+        }
+
+        if(toIsValid==false){
+          $('#chain'+chain+'block'+i+'tx'+k+'to').addClass('input-error');
+        }
+        else{
+          $('#chain'+chain+'block'+i+'tx'+k+'to').removeClass('input-error');
+        }
+
+        if(signatureIsValid==false){
+          $('#chain'+chain+'block'+i+'tx'+k+'signature').addClass('input-error');
+        }
+        else{
+          $('#chain'+chain+'block'+i+'tx'+k+'signature').removeClass('input-error');
+        }
+
+        if(returnedIdIsValid==false){
+          $('#chain'+chain+'block'+i+'tx'+k+'returnedId').addClass('input-error');
+        }
+        else{
+          $('#chain'+chain+'block'+i+'tx'+k+'returnedId').removeClass('input-error');
+        }
+
+        if(returnedValueIsValid==false){
+          $('#chain'+chain+'block'+i+'tx'+k+'returnedValue').addClass('input-error');
+        }
+        else{
+          $('#chain'+chain+'block'+i+'tx'+k+'returnedValue').removeClass('input-error');
+        }
+
+        if(returnedFromIsValid==false){
+          $('#chain'+chain+'block'+i+'tx'+k+'returnedFrom').addClass('input-error');
+        }
+        else{
+          $('#chain'+chain+'block'+i+'tx'+k+'returnedFrom').removeClass('input-error');
+        }
+
+        if(returnedToIsValid==false){
+          $('#chain'+chain+'block'+i+'tx'+k+'returnedTo').addClass('input-error');
+        }
+        else{
+          $('#chain'+chain+'block'+i+'tx'+k+'returnedTo').removeClass('input-error');
+        }
+
+        if(returnedSignatureIsValid==false){
+          $('#chain'+chain+'block'+i+'tx'+k+'returnedSignature').addClass('input-error');
+        }
+        else{
+          $('#chain'+chain+'block'+i+'tx'+k+'returnedSignature').removeClass('input-error');
+        }
+      }
+    }
+  }
+}
+
+function mine(chain, block, chainSize){
+  x=0;
+  while(true){
+    $('#chain'+chain+'block'+block+'nonce').val(x++);
+    updateHash(chain,block);
+    if(validNonce(chain,block)){
+      updateMiningBlockchain(chain, block, chainSize);
+      break;
     }
   }
 }

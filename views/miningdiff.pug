@@ -18,12 +18,22 @@ block layout-content
                         label.col-sm-2.control-label.pt-2(for='maxhashhex', data-toggle='tooltip', data-bs-placement='left') Max hash value (hex):
                         div.col-sm-10
                             input#maxhashhex.form-control(type='text', value='', disabled)
+                p.text-center Valid Hash <= Max Hash
+                p#textAvg.text-center.
+                    On average ONE out of every 2^4 = 16 hash strings is valid
+                p#textPerc.text-center.
+                    Chance to find a valid hash: 6.25%
     
     script.
+        const txtAvg=document.getElementById('textAvg')
+        const txtPrc=document.getElementById('textPerc')
         $(function() {
             update();
             $('#difficulty').bind('input propertychange', function() {
                 this.value = this.value.replace(/[^0-9]/g, '');
+                if(parseInt(this.value)>256){
+                    this.value='256';
+                }
                 update();
             });
 
@@ -51,4 +61,7 @@ block layout-content
 
             var hashBin="0".repeat(diff)+"1".repeat(256-diff);
             $('#maxhashbin').val(hashBin);
+
+            txtAvg.textContent='On average ONE out of every 2^'+diff+' = '+Math.pow(2,diff)+' hash strings is valid'
+            txtPrc.textContent='Chance to find a valid hash: '+100.0/Math.pow(2,diff) +'%'
         }

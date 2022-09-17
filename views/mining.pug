@@ -1,0 +1,220 @@
+extends layout
+
+block layout-content
+    div.container-fluid
+        h1.text-center.mt-4.mb-4 BLOCK MINING
+        div.row.row-horizon(style='flex-wrap: nowrap')
+            - var blocks = []
+            - blocks.push({chain: 1, block: 1, magic: 74567, blockid: 1, coinvalue: '20.00', cointo: '0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', txs: [], diff: '4', nonce: '120', prev: '0000000000000000000000000000000000000000000000000000000000000000'})
+            - blocks.push({chain: 1, block: 2, magic: 74567, blockid: 2, coinvalue: '20.00', cointo: '04c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee51ae168fea63dc339a3c58419466ceaeef7f632653266d0e1236431a950cfe52a', txs: [{value: '4.55', from: '0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', to: '04f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9388f7b0f632de8140fe337e62a37f3566500a99934c2231b6cb9fd7584b8e672', ref:'1', returnedValue: '15.45', id:'1', signature:'304502200365cc106d1f92925f66f88624afb87a6dc85247d95fa4b71a3158896983bd75022100ee21947e13cb7833bd7f9db86d560dc4ae12531104af5ad36eda520c19aee51f', returnedSignature:'3046022100e9bcd71e014f4fce1046e7af8df24d75aad0829f456891aec7c7652ce1d83ede022100bba5a1e1305d512b95e17e15e6977f78e6a9cf809947bf10cac142bda2da958c'}], diff: '4', nonce: '121', prev: 'd8513630308ce4132dfc271367bc3c925390ca87fb66cc6d3c109a941a833e8f'})
+            - blocks.push({chain: 1, block: 3, magic: 74567, blockid: 3, coinvalue: '20.00', cointo: '04e493dbf1c10d80f3581e4904930b1404cc6c13900ee0758474fa94abe8c4cd1351ed993ea0d455b75642e2098ea51448d967ae33bfbdfe40cfe97bdc47739922', txs: [{value: '2.50', from: '04c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee51ae168fea63dc339a3c58419466ceaeef7f632653266d0e1236431a950cfe52a', to: '04f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9388f7b0f632de8140fe337e62a37f3566500a99934c2231b6cb9fd7584b8e672', ref: '2', returnedValue: '17.50', id:'1', signature:'30460221008eba6b22fc5f0f9aeea4ed770865f5404a8fb818dbfba351726eecd1bebf6919022100d3c6eb50e0ab850450904fd78738a6d5a3dfa9c88c265bfc52813b7e7812ba16', returnedSignature:'3044022011fe456b35573c10b4884e8369a32157f20fa7fa92342ea947e4f59b62e6c66d02206453a75e132424244be4d266dcfe79bd7b3a56a59d14e1db5122456d01022876'}, {value: '3.00', from: '0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', to: '04f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9388f7b0f632de8140fe337e62a37f3566500a99934c2231b6cb9fd7584b8e672', ref: '2', returnedValue: '12.45', id:'3', signature:'3044022054b8a2f8df9564e1248bc27702bd152ff1ef2d67c1d94190b16a959a67aa1e0502204a61a9b3448d727fa8eb89c2344ffda716f04163ccf051166bc8ff8c32990598', returnedSignature:'3045022068eec3ed8bd6278833cd634086e165f9012061e83da1625ee3f1cc3dbf82b5de022100cb5b3d0f3c99af10eebaecb7097b3420f3194d3a59a231d6a724f8d804817555'}], diff: '4', nonce: '122', prev: 'e212904d6f652c48c8b9f6cf1549c87de156a129069fced8966008bd0e8365b6'})
+            - blocks.push({chain: 1, block: 4, magic: 74567, blockid: 4, coinvalue: '20.00', cointo: '0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', txs: [{value: '4.90', from: '04f9308a019258c31049344f85f89d5229b531c845836f99b08601f113bce036f9388f7b0f632de8140fe337e62a37f3566500a99934c2231b6cb9fd7584b8e672', to: '04c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee51ae168fea63dc339a3c58419466ceaeef7f632653266d0e1236431a950cfe52a', ref: '2 3', returnedValue: '5.15', id:'1', signature:'304502204f7d726f656cb6a5231447f1e88a2b38fdc4660a06b629957d2c7e20e161bd100221009947c5cdf4f481e2af351ee17f9ecfb3ee11774e7005ffd775d2a522d93baa0b', returnedSignature:'304402207eac4039ec829f0bbadf256407e69fc6c024759589890fd392aa2d42b08666f702206c7d5359c7bbd59b16e719ef19c4129aab0bc371e5f8bdf63cb1b4a80f7b38a3'}, {value: '4.09', from: '04c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee51ae168fea63dc339a3c58419466ceaeef7f632653266d0e1236431a950cfe52a', to: '042f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe4d8ac222636e5e3d6d4dba9dda6c9c426f788271bab0d6840dca87d3aa6ac62d6', ref: '3', returnedValue: '13.41', id:'3', signature:'304402201ae9e6edab8991cbbd40ef2c465a8f732476dbeb3854c44e2d8c5007ecda4a8c02200e07ed172804dd32fca25ecc150525488c1d2f3e1111708b8cc7b488fd1fad6c', returnedSignature:'304402201f262058f0c999cfd858212403bf9ec1f19e7af42846bac5bfe1b0d50e632262022059625401c8aac0af02c302dd232b7eaced0e133e152a19e03b8afffcaf16490d'}], diff: '4', nonce: '123', prev: '690f19e1bd54828d3c05e8ce9d2bd8ffaec809c0c1ae4b1071069816274c12c5'})
+            - blocks.push({chain: 1, block: 5, magic: 74567, blockid: 5, coinvalue: '20.00', cointo: '04e493dbf1c10d80f3581e4904930b1404cc6c13900ee0758474fa94abe8c4cd1351ed993ea0d455b75642e2098ea51448d967ae33bfbdfe40cfe97bdc47739922', txs: [{value: '1.00', from: '04e493dbf1c10d80f3581e4904930b1404cc6c13900ee0758474fa94abe8c4cd1351ed993ea0d455b75642e2098ea51448d967ae33bfbdfe40cfe97bdc47739922', to: '0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', ref: '3', returnedValue: '19.00', id:'1', signature:'3045022100b8f1abc3176e2f6ba15113f04931ca2649af82ae76cc6aab243fcde00825a62c0220425949633d4580e9deb668eeb6e2ee8a976595a9f96080e52d5a4450f45bd4b0', returnedSignature:'304402202fee8159680432c1678be1c3b6b50164a16d5da0added3f642e1bc2d4422bfd10220153e3c1e3b7f14fb09c9e9ee44f7b6f1c410aeb477a0c7d0e35860413354e741'}, {value: '4.00', from: '042f8bde4d1a07209355b4a7250a5c5128e88b84bddc619ab7cba8d569b240efe4d8ac222636e5e3d6d4dba9dda6c9c426f788271bab0d6840dca87d3aa6ac62d6', to: '0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', ref: '4', returnedValue: '0.09', id:'1', signature:'304402205cab682bfa3fcaead98b50b280d2c9cf5f8bc12e8303cb078ed0685b72449e8602203d5ce9d333a3866b65c432ddd888e2740438ee5f9b8cf6443be4d3432fd5214a', returnedSignature:'3045022100f04b795ad28397b0f43ecf1668c4db0c45564a965ad1f327eda64ddf5fe850f902200aba0862d7e67009a493f92fdd4d183e202e185fc9d23963c956a35c1e1a23d0'}], diff: '4', nonce: '124', prev: '30df378ec9f338659db333a3bc9cc1a49b452fbb9c70fcf9c40df5ebd7abc3b8'})
+            - blocks.push({chain: 1, block: 6, magic: 74567, blockid: 6, coinvalue: '10.00', cointo: '0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', txs: [{value: '14.50', from: '0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', to: '04c6047f9441ed7d6d3045406e95c07cd85c778e4b8cef3ca7abac09b95c709ee51ae168fea63dc339a3c58419466ceaeef7f632653266d0e1236431a950cfe52a', ref: '4 5', returnedValue: '10.50', id:'5', signature:'3044022059738454dda7b000a300ed7d020835e17cd453f69fc722089d0ba2a49f77597402200a15a1f06daf89ba8b8bd532f04946a31d84da6f32bfcb26b1080ba388613138', returnedSignature:'304602210082f1a489405a9d6e7ee708fb15ad20c8f18d799e4757b2475392dd4062fbdb00022100ad1d514363c21fd0b7031ed91acb932de4618f73537f85fa80e834a4238bac5c'}], diff: '4', nonce: '125', prev: 'fa95acaac45c37bb3ccc951ff333e2b79e939165d9e52db58dbd94e76d7c5564'})
+            each miningblock in blocks
+                div.col-lg-6
+                    include includes/miningblock
+
+    script.
+        function getText(chain, block){
+            var text =  $('#chain'+chain+'block'+block+'magic').val()+
+                        $('#chain'+chain+'block'+block+'blockid').val()+
+                        $('#chain'+chain+'block'+block+'coinvalue').val()+
+                        $('#chain'+chain+'block'+block+'cointo').val();
+            
+            for(var i = 0; $('#chain'+chain+'block'+block+'tx'+i+'value').length>0; i++){
+                text += $('#chain'+chain+'block'+block+'tx'+i+'ref').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'value').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'from').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'to').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'id').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'signature').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'returnedValue').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'returnedFrom').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'returnedTo').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'returnedId').val()+
+                        $('#chain'+chain+'block'+block+'tx'+i+'returnedSignature').val();
+            }
+            text += $('#chain'+chain+'block'+block+'diff').val();
+            text += $('#chain'+chain+'block'+block+'nonce').val();
+            text += $('#chain'+chain+'block'+block+'prev').val();
+            return text;
+        }
+
+        function setup(chain, block){
+            updateHash(chain, block);
+            //magic
+            $('#chain'+chain+'block'+block+'magic').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                });
+
+            $('#chain'+chain+'block'+block+'magic').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                }          
+            });
+
+            //blockid
+            $('#chain'+chain+'block'+block+'blockid').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                });
+
+            $('#chain'+chain+'block'+block+'blockid').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                }          
+            });
+
+            //coinbase
+            $('#chain'+chain+'block'+block+'coinvalue').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                });
+
+            $('#chain'+chain+'block'+block+'coinvalue').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                }          
+            });
+            
+            $('#chain'+chain+'block'+block+'cointo').bind('input propertychange', function() {
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                });
+
+            //txs
+            for(var i = 0; $('#chain'+chain+'block'+block+'tx'+i+'value').length>0; i++){
+                //tx ref
+                $('#chain'+chain+'block'+block+'tx'+i+'ref').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9 ]/g, '').replace(/ +/g,' ').replace(/^ /g, '');
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                });
+
+                $('#chain'+chain+'block'+block+'tx'+i+'ref').bind('focusout', function() {
+                    this.value = this.value.replace(/ $/g, '');
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                });
+
+                //tx id
+                $('#chain'+chain+'block'+block+'tx'+i+'id').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                });
+
+                $('#chain'+chain+'block'+block+'tx'+i+'id').bind('focusout', function() {
+                    if(this.value==''){
+                        this.value='1';
+                        updateMiningBlockchain(chain, block, #{blocks.length});
+                    }
+                });
+
+                //tx value
+                $('#chain'+chain+'block'+block+'tx'+i+'value').bind('input propertychange', function() {
+                        this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+                        updateMiningBlockchain(chain, block, #{blocks.length});
+                    });
+
+                $('#chain'+chain+'block'+block+'tx'+i+'value').bind('focusout', function() {
+                        if(this.value==''){
+                            this.value='0';
+                            updateMiningBlockchain(chain, block, #{blocks.length});
+                        }
+                    });
+                
+                //tx from
+                $('#chain'+chain+'block'+block+'tx'+i+'from').bind('input propertychange', function() { updateMiningBlockchain(chain, block, #{blocks.length}); });
+
+                //tx to
+                $('#chain'+chain+'block'+block+'tx'+i+'to').bind('input propertychange', function() { updateMiningBlockchain(chain, block, #{blocks.length}); });
+
+                //tx signature
+                $('#chain'+chain+'block'+block+'tx'+i+'signature').bind('input propertychange', function() { updateMiningBlockchain(chain, block, #{blocks.length}); });
+
+                //tx returned id
+                $('#chain'+chain+'block'+block+'tx'+i+'returnedId').bind('input propertychange', function() {
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                });
+
+                $('#chain'+chain+'block'+block+'tx'+i+'returnedId').bind('focusout', function() {
+                    if(this.value==''){
+                        this.value='1';
+                        updateMiningBlockchain(chain, block, #{blocks.length});
+                    }
+                });
+
+                //tx returned value
+                $('#chain'+chain+'block'+block+'tx'+i+'returnedValue').bind('input propertychange', function() {
+                        this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');
+                        updateMiningBlockchain(chain, block, #{blocks.length});
+                    });
+
+                $('#chain'+chain+'block'+block+'tx'+i+'returnedValue').bind('focusout', function() {
+                        if(this.value==''){
+                            this.value='0';
+                            updateMiningBlockchain(chain, block, #{blocks.length});
+                        }
+                    });
+
+                //tx returned from
+                $('#chain'+chain+'block'+block+'tx'+i+'returnedFrom').bind('input propertychange', function() { updateMiningBlockchain(chain, block, #{blocks.length}); });
+
+                //tx returned to
+                $('#chain'+chain+'block'+block+'tx'+i+'returnedTo').bind('input propertychange', function() { updateMiningBlockchain(chain, block, #{blocks.length}); });
+            
+                //tx returned signature
+                $('#chain'+chain+'block'+block+'tx'+i+'returnedSignature').bind('input propertychange', function() { updateMiningBlockchain(chain, block, #{blocks.length}); });
+            }
+
+            //diff
+            $('#chain'+chain+'block'+block+'diff').bind('input propertychange', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                if(parseInt(this.value)>12){
+                    this.value=12;
+                }
+                updateMiningBlockchain(chain, block, #{blocks.length});
+            });
+
+            $('#chain'+chain+'block'+block+'diff').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                }
+                if(parseInt(this.value)>12){
+                    this.value=12;
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                }     
+            });
+
+            //nonce
+            $('#chain'+chain+'block'+block+'nonce').bind('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                updateMiningBlockchain(chain, block, #{blocks.length});
+            });
+
+            $('#chain'+chain+'block'+block+'nonce').bind('focusout', function() {
+                if(this.value==''){
+                    this.value='0';
+                    updateMiningBlockchain(chain, block, #{blocks.length});
+                }
+            });
+
+            //prev
+            $('#chain'+chain+'block'+block+'prev').bind('input propertychange', function() { updateMiningBlockchain(chain, block, #{blocks.length}); });
+
+            //mine button
+            $('#chain'+chain+'block'+block+'mineBtn').bind('click', function() {
+                mine(chain,block,#{blocks.length});
+            });
+        }
+
+        $(function(){
+            for(var i = 1; i <= #{blocks.length}; i++){
+                setup(1,i);
+            }
+        });
+        //UBACITI OBJASNJENJE KAKO RADE STVARI: SVAKI PETI COINBASE SE SMANJUJE ZA POLA, PRATE SE UNAZAD BLOKOVI ZA VALIDNE TX KROZ REFERENCE
