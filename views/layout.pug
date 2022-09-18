@@ -14,10 +14,8 @@ html
     script(src='javascripts/lib/bootstrap.bundle.min.js')
     script(src='javascripts/lib/crypto-js.js')
     script(src='javascripts/lib/bigInteger.min.js')
-    //script(src='javascripts/lib/elliptic.js')
     script(src='javascripts/lib/elliptic.min.js')
     script(src='javascripts/lib/buffer.js')
-    //script(src='javascripts/bundle.js')
     script(src='javascripts/chf.js')
     script(src='javascripts/blockchain.js')
     
@@ -40,6 +38,7 @@ html
                     a.nav-link(href='/signaturesandids', class={active: page === 'signaturesandids'}) Signed Txs
                     a.nav-link(href='/miningdiff', class={active: page === 'miningdiff'}) Mining Difficulty
                     a.nav-link(href='/mining', class={active: page === 'mining'}) Block Mining
+                    a.nav-link(href='/distributed', class={active: page === 'distributed'}) Distributed Blockchain
                 div.navbar-nav
                     a.nav-link(href='/references', class={active: page === 'references'}) References
                     a.nav-link(href='/about', class={active: page === 'about'}) About      
