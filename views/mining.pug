@@ -173,8 +173,8 @@ block layout-content
             //diff
             $('#chain'+chain+'block'+block+'diff').bind('input propertychange', function() {
                 this.value = this.value.replace(/[^0-9]/g, '');
-                if(parseInt(this.value)>12){
-                    this.value=12;
+                if(parseInt(this.value)>16){
+                    this.value=16;
                 }
                 updateMiningBlockchain(chain, block, #{blocks.length});
             });
@@ -184,8 +184,8 @@ block layout-content
                     this.value='0';
                     updateMiningBlockchain(chain, block, #{blocks.length});
                 }
-                if(parseInt(this.value)>12){
-                    this.value=12;
+                if(parseInt(this.value)>16){
+                    this.value=16;
                     updateMiningBlockchain(chain, block, #{blocks.length});
                 }     
             });
@@ -208,7 +208,12 @@ block layout-content
 
             //mine button
             $('#chain'+chain+'block'+block+'mineBtn').bind('click',function() {
-                mine(chain,block,#{blocks.length});
+                let spinner=document.getElementById('chain'+chain+'block'+block+'spinner');
+                spinner.removeAttribute('hidden');
+                setTimeout(()=>{
+                    mine(chain,block,#{blocks.length});
+                    spinner.setAttribute('hidden','true');
+                },400);
             });
         }
 

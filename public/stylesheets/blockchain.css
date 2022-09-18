@@ -11,3 +11,7 @@
   font-weight: 600!important;
   border: 2px solid rgb(230, 10, 10)!important;
 }
+
+body.waiting * {
+  cursor: progress!important;
+}

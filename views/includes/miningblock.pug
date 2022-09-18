@@ -76,4 +76,6 @@ div.card.card-success(id='chain'+miningblock.chain+'block'+miningblock.block+'ca
                     input.form-control(id='chain'+miningblock.chain+'block'+miningblock.block+'hash', type='text', disabled)
             
             div.mb-3.text-center
-                button.btn.btn-secondary(id='chain'+miningblock.chain+'block'+miningblock.block+'mineBtn', type='button') Mine
+                button.btn.btn-secondary(id='chain'+miningblock.chain+'block'+miningblock.block+'mineBtn', type='button') Mine  
+                    span.spinner-border.spinner-border-sm(id='chain'+miningblock.chain+'block'+miningblock.block+'spinner',role='status',aria-hidden='true',hidden)
+                

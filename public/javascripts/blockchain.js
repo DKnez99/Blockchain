@@ -952,7 +952,6 @@ function chainsMatch(chainA, chainB, chainSize){
 }
 
 function mine(chain, block, chainSize){
-  document.querySelector('html').style.cursor='progress';
   x=0;
   while(true){
     $('#chain'+chain+'block'+block+'nonce').val(x++);
@@ -962,11 +961,9 @@ function mine(chain, block, chainSize){
       break;
     }
   }
-  document.querySelector('html').style.cursor='auto';
 }
 
 function mineDist(chain, block, chainSize){
-  document.querySelector('html').style.cursor='progress';
   x=0;
   while(true){
     $('#chain'+chain+'block'+block+'nonce').val(x++);
@@ -976,5 +973,4 @@ function mineDist(chain, block, chainSize){
       break;
     }
   }
-  document.querySelector('html').style.cursor='auto';
 }

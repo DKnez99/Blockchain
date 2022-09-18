@@ -2,8 +2,8 @@ extends layout
 
 block layout-content
     div.container-fluid
-        h1.text-center.mt-4.mb-4 BLOCK MINING
-        h4#peerA.mt-4.mb-4.text-success Peer A
+        h1.text-center.mt-4.mb-4 DISTRIBUTED BLOCKCHAIN
+        h3#peerA.mt-4.mb-2.text-center.text-success Peer A
         div.row.row-horizon(style='flex-wrap: nowrap')
             - var blocks = []
             - blocks.push({chain: 1, block: 1, magic: 74567, blockid: 1, coinvalue: '20.00', cointo: '0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', txs: [], diff: '8', nonce: '54', prev: '0000000000000000000000000000000000000000000000000000000000000000'})
@@ -15,7 +15,7 @@ block layout-content
             each miningblock in blocks
                 div.col-lg-6
                     include includes/miningblock
-        h4#peerB.mt-4.mb-4.text-success Peer B
+        h3#peerB.mt-4.mb-2.text-center.text-success Peer B
         div.row.row-horizon(style='flex-wrap: nowrap')
             - var blocks = []
             - blocks.push({chain: 2, block: 1, magic: 74567, blockid: 1, coinvalue: '20.00', cointo: '0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', txs: [], diff: '8', nonce: '54', prev: '0000000000000000000000000000000000000000000000000000000000000000'})
@@ -27,7 +27,7 @@ block layout-content
             each miningblock in blocks
                 div.col-lg-6
                     include includes/miningblock
-        h4#peerC.mt-4.mb-4.text-success Peer C
+        h3#peerC.mt-4.mb-2.text-center.text-success Peer C
         div.row.row-horizon(style='flex-wrap: nowrap')
             - var blocks = []
             - blocks.push({chain: 3, block: 1, magic: 74567, blockid: 1, coinvalue: '20.00', cointo: '0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8', txs: [], diff: '8', nonce: '54', prev: '0000000000000000000000000000000000000000000000000000000000000000'})
@@ -198,8 +198,8 @@ block layout-content
             //diff
             $('#chain'+chain+'block'+block+'diff').bind('input propertychange', function() {
                 this.value = this.value.replace(/[^0-9]/g, '');
-                if(parseInt(this.value)>12){
-                    this.value=12;
+                if(parseInt(this.value)>16){
+                    this.value=16;
                 }
                 updateDistributedBlockchain(chain, block, #{blocks.length});
             });
@@ -209,8 +209,8 @@ block layout-content
                     this.value='0';
                     updateDistributedBlockchain(chain, block, #{blocks.length});
                 }
-                if(parseInt(this.value)>12){
-                    this.value=12;
+                if(parseInt(this.value)>16){
+                    this.value=16;
                     updateDistributedBlockchain(chain, block, #{blocks.length});
                 }     
             });
@@ -232,7 +232,14 @@ block layout-content
             $('#chain'+chain+'block'+block+'prev').bind('input propertychange', function() { updateDistributedBlockchain(chain, block, #{blocks.length}); });
 
             //mine button
-            $('#chain'+chain+'block'+block+'mineBtn').bind('click',function() {mineDist(chain,block,#{blocks.length});});
+            $('#chain'+chain+'block'+block+'mineBtn').bind('click',function() {
+                let spinner=document.getElementById('chain'+chain+'block'+block+'spinner');
+                spinner.removeAttribute('hidden');
+                setTimeout(()=>{
+                    mineDist(chain,block,#{blocks.length});
+                    spinner.setAttribute('hidden','true');
+                },400);
+            });
         }
 
         $(function(){
