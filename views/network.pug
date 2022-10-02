@@ -1,0 +1,8 @@
+extends layout
+
+block layout-content
+    div.container
+        h1.text-center.mt-4 NETWORK
+        div.embed-responsive.embed-responsive-16by9
+            video.embed-responsive-item(width='100%', height='100%', controls, autoplay, loop)
+                source(src='videos/Network.mp4', type='video/mp4')

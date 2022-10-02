@@ -36,10 +36,11 @@ html
                     a.nav-link(href='/keys', class={active: page === 'keys'}) Keys
                     a.nav-link(href='/signatures', class={active: page === 'signatures'}) Signatures
                     a.nav-link(href='/signaturesandids', class={active: page === 'signaturesandids'}) Signed Txs
-                    a.nav-link(href='/miningdiff', class={active: page === 'miningdiff'}) Mining Difficulty
-                    a.nav-link(href='/mining', class={active: page === 'mining'}) Block Mining
-                    a.nav-link(href='/distributed', class={active: page === 'distributed'}) Distributed Blockchain
-                div.navbar-nav
+                    a.nav-link(href='/miningdiff', class={active: page === 'miningdiff'}) Difficulty
+                    a.nav-link(href='/mining', class={active: page === 'mining'}) Mining
+                    a.nav-link(href='/distributed', class={active: page === 'distributed'}) Distributed
+                    a.nav-link(href='/network', class={active: page === 'network'}) Network
+                //div.navbar-nav
                     a.nav-link(href='/references', class={active: page === 'references'}) References
                     a.nav-link(href='/about', class={active: page === 'about'}) About      
     block layout-content
