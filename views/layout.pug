@@ -19,7 +19,7 @@ html
     script(src='javascripts/chf.js')
     script(src='javascripts/blockchain.js')
     
-  body
+  body.d-flex.flex-column.min-vh-100
     nav.navbar.navbar-expand-lg.navbar-dark.bg-secondary
         div.container
             a.navbar-brand(href='/')
@@ -40,7 +40,10 @@ html
                     a.nav-link(href='/mining', class={active: page === 'mining'}) Mining
                     a.nav-link(href='/distributed', class={active: page === 'distributed'}) Distributed
                     a.nav-link(href='/network', class={active: page === 'network'}) Network
-                //div.navbar-nav
+                div.navbar-nav
                     a.nav-link(href='/references', class={active: page === 'references'}) References
-                    a.nav-link(href='/about', class={active: page === 'about'}) About      
+                    a.nav-link(href='/about', class={active: page === 'about'}) About
     block layout-content
+  footer.bg-light.text-center.mt-auto
+    div.text-center.p-3.bg-light System for Visual Representation of Blockchain Technology © 2022 Dimitrije Knezevic
+    

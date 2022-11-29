@@ -24,7 +24,6 @@ function validPrev(chain, block){
 }
 
 function validCoinbase(chain, block){
-  //console.log(`Block ${block}: ${parseFloat(20.0/Math.pow(2,parseInt((block-1)/5)))}`);
   return parseFloat($('#chain'+chain+'block'+block+'coinvalue').val())==parseFloat(20.0/Math.pow(2,parseInt((block-1)/5)));
 }
 
@@ -41,7 +40,6 @@ function validReturnedFrom(chain, block, tx){
 }
 
 function validRef(chain, block, tx){
-  //console.log(`Block: ${block}, Tx: ${tx}`);
   if(block==1){
     return true;
   }
@@ -53,10 +51,8 @@ function validRef(chain, block, tx){
   const refArray = $('#chain'+chain+'block'+block+'tx'+tx+'ref').val().split(' ');
 
   refArray.sort(function(a, b){return a - b});
-  //console.log(`References: ${refArray}`);
   //array is empty || there are duplicates || referenced current block or greater
   if(refArray.length==0 || (new Set(refArray)).size!==refArray.length || refArray[refArray.length-1]>=block){ 
-    //console.log(`References not valid`);
     return false;
   }
 
@@ -86,7 +82,6 @@ function validRef(chain, block, tx){
       }
 
       if(!senderFound){
-        //console.log(`Sender ${sender} not found in block ${i}`);
         return false;
       }
     }
@@ -94,11 +89,8 @@ function validRef(chain, block, tx){
       for(let k = 0; $('#chain'+chain+'block'+i+'tx'+k+'value').length>0; k++){ //go through all tx in that block
         if($('#chain'+chain+'block'+i+'tx'+k+'from').val()==sender){
           let kRefArray = $('#chain'+chain+'block'+i+'tx'+k+'ref').val().split(' ');
-          //console.log(`kRefArray: ${kRefArray}`);
-          //console.log(`Overlap: ${refArray.filter(x=>kRefArray.includes(x))}`);
           let tempArray = refArray;
           if(tempArray.filter(x=>kRefArray.includes(x)).length!=0){  //if arrays overlap
-            //console.log(`Already used reference in block: ${i}`);
             return false;
           }
         }
@@ -106,8 +98,6 @@ function validRef(chain, block, tx){
     }
   }
 
-  //console.log(`Allowed: ${allowedSum}, Spent: ${spentSum}`);
-  //console.log(' ');
   return allowedSum==spentSum;
 }
 
@@ -143,7 +133,6 @@ function validId(chain, block, tx){
   return currId==1;
 }
 
-
 function validReturnedId(chain, block, tx){
   if(block==1){
     return true;
@@ -159,23 +148,18 @@ function validSignature(chain,block,tx){
           $('#chain'+chain+'block'+block+'tx'+tx+'value').val()+
           $('#chain'+chain+'block'+block+'tx'+tx+'from').val()+
           $('#chain'+chain+'block'+block+'tx'+tx+'to').val();
-  //console.log('Msg: '+msg);
   try{
       var temp=ec.keyFromPublic($('#chain'+chain+'block'+block+'tx'+tx+'from').val(),'hex');
-      //console.log('Stored sender\'s public key');
       var binaryMsg=buffer.Buffer.from(CryptoJS.SHA256(msg).toString(CryptoJS.enc.Hex));
       //console.log('Converted msg to binary');
       if(temp.verify(binaryMsg,$('#chain'+chain+'block'+block+'tx'+tx+'signature').val())){
-          //console.log('Chain '+chain+', Block '+block+', Tx '+tx+'. Signature Matches!');
           return true;
       }
       else{
-          //console.log('Chain '+chain+', Block '+block+', Tx '+tx+'. Signature Failed! Should be: '+binaryMsg.toString());
           return false;
       }
   }
   catch(e){
-      //console.log('Chain '+chain+', Block '+block+', Tx '+tx+'. Signature Error! '+e.toString());
       return false;
   }
 }
@@ -188,24 +172,18 @@ function validReturnedSignature(chain,block,tx){
           $('#chain'+chain+'block'+block+'tx'+tx+'returnedValue').val()+
           $('#chain'+chain+'block'+block+'tx'+tx+'returnedFrom').val()+
           $('#chain'+chain+'block'+block+'tx'+tx+'returnedTo').val();
-  
-  //console.log('Msg: '+msg);
+
   try{
       var temp=ec.keyFromPublic($('#chain'+chain+'block'+block+'tx'+tx+'returnedFrom').val(),'hex');
-      //console.log('Stored sender\'s public key');
       var binaryMsg=buffer.Buffer.from(CryptoJS.SHA256(msg).toString(CryptoJS.enc.Hex));
-      //console.log('Converted msg to binary');
       if(temp.verify(binaryMsg,$('#chain'+chain+'block'+block+'tx'+tx+'returnedSignature').val())){
-          //console.log('Chain '+chain+', Block '+block+', Tx '+tx+'. Returned Signature Matches!');
           return true;
       }
       else{
-          //console.log('Chain '+chain+', Block '+block+', Tx '+tx+'. Returned Signature Failed! Should be: '+binaryMsg.toString());
           return false;
       }
   }
   catch(e){
-      //console.log('Chain '+chain+', Block '+block+', Tx '+tx+'. Returned Signature Error! '+e.toString());
       return false;
   }
 }
@@ -267,9 +245,7 @@ function updateBlockchain(chain, block, chainSize) {
   updateHash(chain, block);
 
   for(var i = 1; i<=chainSize; i++){
-
     if(validMagic(chain, i) && validBlockId(chain, i) && validPrev(chain, i)){  //no errors in the current block
-      
       $('#chain'+chain+'block'+i+'magic').removeClass('input-error');
       $('#chain'+chain+'block'+i+'blockid').removeClass('input-error');
       $('#chain'+chain+'block'+i+'prev').removeClass('input-error');
