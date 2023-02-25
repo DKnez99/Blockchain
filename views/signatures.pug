@@ -137,16 +137,13 @@ block layout-content
                     var temp=ec.keyFromPublic($('#public').val(),'hex');
                     var binaryMsg=buffer.Buffer.from(CryptoJS.SHA256($('#receiverMsg').val()).toString(CryptoJS.enc.Hex));
                     if(temp.verify(binaryMsg,$('#receiverSignature').val())){
-                        console.log('success');
                         $('#receiverCard').removeClass('bg-light').removeClass('card-error').addClass('card-success');
                     }
                     else{
-                        console.log('failure');
                         $('#receiverCard').removeClass('bg-light').removeClass('card-success').addClass('card-error');
                     }
                 }
                 catch(e){
-                    console.log('failure, '+e.toString());
                     $('#receiverCard').removeClass('bg-light').removeClass('card-success').addClass('card-error');
                 }
             });

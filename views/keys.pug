@@ -23,9 +23,7 @@ block layout-content
     script.
         var EC = elliptic.ec;
         var ec = new EC('secp256k1');
-
         var keypair = ec.genKeyPair();
-
 
         function random() {
             keypair = ec.genKeyPair();
