@@ -107,7 +107,7 @@ function validId(chain, block, tx){
     return true;
   }
   const currId=parseInt($('#chain'+chain+'block'+block+'tx'+tx+'id').val());
-  const sender=$('#chain'+chain+'block'+block+'tx'+tx+'from').val()
+  const sender=$('#chain'+chain+'block'+block+'tx'+tx+'from').val();
   var senderFound=false;
   var prevId=-1;
   for(let i=block; i>=1; i--){
